@@ -71,6 +71,5 @@ var Graphics = {
 			this.portX -= this.scrollSpeed;
 			if(this.portX <0) this.portX = 0;
 		}
-		if(this.mouse
 	}
 }
