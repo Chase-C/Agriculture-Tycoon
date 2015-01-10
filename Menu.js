@@ -1,14 +1,16 @@
-var Menu = function(x, y, w, h)
+var Menu = function(x, y, w, h, buttons)
 {
     this.x = x || 0;
     this.y = y || 0;
     this.w = w || 0;
     this.h = h || 0;
 
-    this.closeX = this.w - 32;
-    this.closeY = 0;
-    this.closeW = 32;
-    this.closeH = 32;
+    this.buttons = [];
+
+    var closeFunc = function() {
+        this.exit = true;
+    }
+    this.buttons.push(new Button(this.w - 32, 0, 32, 32, "X", closeFunc.bind(this)));
 
     this.exit = false;
 }
@@ -23,8 +25,14 @@ Menu.prototype =
     {
     },
 
-    mouseDown: function(mx, my)
+    mouseDown: function(x, y)
     {
+        var mx = x - this.x;
+        var my = y - this.y;
+
+        for (var i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].mouseDown(mx, my);
+        }
     },
 
     mouseUp: function(x, y)
@@ -32,9 +40,8 @@ Menu.prototype =
         var mx = x - this.x;
         var my = y - this.y;
 
-        if (mx > this.closeX && mx < this.closeX + this.closeW &&
-            my > this.closeY && my < this.closeY + this.closeH) {
-            this.exit = true;
+        for (var i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].mouseUp(mx, my);
         }
     },
 
@@ -47,7 +54,10 @@ Menu.prototype =
 
         canvas.fillRect  (0, 0, this.w, this.h);
         canvas.strokeRect(0, 0, this.w, this.h);
-        canvas.strokeRect(this.closeX, this.closeY, this.closeW, this.closeH);
+
+        for (var i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].draw(canvas);
+        }
 
         canvas.translate(-this.x, -this.y);
     }
