@@ -5,7 +5,7 @@ var Menu = function(x, y, w, h, buttons)
     this.w = w || 0;
     this.h = h || 0;
 
-    this.buttons = [];
+    this.buttons = buttons;
 
     var closeFunc = function() {
         this.exit = true;

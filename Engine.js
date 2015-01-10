@@ -6,10 +6,12 @@ var Engine = function(w, h)
     this.running = true;
     this.time = Date.now();
 
-    var menuFunc = function() {
-        this.menus.push(new Menu(256, 16, 320, 480));
-    }
+    this.farm = new Farm();
+    this.ui   = new UI(this.farm);
 
+    var menuFunc = function() {
+        this.menus.push(createActionMenu(this.farm));
+    }
     this.testButton = new Button(32, 100, 128, 32, "Test", menuFunc.bind(this));
 
     this.menus = [];
@@ -69,6 +71,8 @@ Engine.prototype =
         canvas.fillRect(0, 0, this.w, this.h);
 
         Graphics.drawTiles(canvas);
+
+        this.ui.draw(canvas);
 
         this.testButton.draw(canvas);
 
