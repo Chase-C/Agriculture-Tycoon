@@ -8,7 +8,6 @@ var Engine = function(w, h)
 
     this.menus = [];
 	
-	this.worldChanged = true;
 	Graphics.initialize();
 }
 
@@ -58,14 +57,11 @@ Engine.prototype =
         canvas.fillStyle = 'white';
         canvas.fillRect(0, 0, this.w, this.h);
 
+        Graphics.drawTiles(canvas);
+
         for (var i = 0; i < this.menus.length; i++) {
             this.menus[i].draw(canvas);
         }
-
-		if(this.worldChanged){
-			Graphics.drawTiles(canvas);
-			this.worldChanged = false;
-		}
     }
 	
 }

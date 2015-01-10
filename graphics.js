@@ -11,13 +11,11 @@ var Graphics = {
 				this.tiles[i][j] = this.dirt;
 			}
 		}
-		console.log("initialized");
 	},
 	drawTiles: function(canvas){
 		for(var i=0;i<this.tiles.length;i++){
 			for(var j=0;j<this.tiles[0].length;j++){
 				canvas.drawImage(this.dirt, i*this.tileSize, j*this.tileSize);
-				console.log("drawing tile");
 			}
 		}
 	}
