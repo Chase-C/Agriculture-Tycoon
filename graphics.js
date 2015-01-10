@@ -3,6 +3,7 @@ var Graphics = {
 	worldHeight: 1200,
 	portX: 200,
 	portY: 200,
+	scrollSpeed: 4,
 	scrollMargins: [100, 150, 100, 150], //top right bottom left
 	
 	//local image class
@@ -19,7 +20,6 @@ var Graphics = {
 			if(this.x >= Graphics.portX-this.w && this.x <= Graphics.portX+Graphics.portWidth &&
 			   this.y >= Graphics.portY-this.h && this.y <= Graphics.portY+Graphics.portHeight){
 				Graphics.canvas.drawImage(this.elem, this.x-Graphics.portX, this.y-Graphics.portY);
-				//console.log(this.elem.src);
 			}
 		}
 	},
@@ -56,6 +56,14 @@ var Graphics = {
 	},
 	
 	checkScroll: function(){
-		
+		if(this.mouseY<this.scrollMargins[0] && this.portY >=0){
+			this.portY -= this.scrollSpeed;
+		}else if(this.mouseX>this.portWidth-this.scrollMargins[1] && this.portX <= this.worldWidth-this.portWidth){
+			this.portX += this.scrollSpeed;
+		}else if(this.mouseY>this.portHeight-this.scrollMargins[2] && this.portY <= this.worldHeight-this.portHeight){
+			this.portY += this.scrollSpeed;
+		}else if(this.mouseX<this.scrollMargins[3] && this.portX >= 0){
+			this.portX -= this.scrollSpeed;
+		}
 	}
 }
