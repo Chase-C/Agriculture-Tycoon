@@ -15,8 +15,6 @@ var Engine = function(w, h)
     this.testButton = new Button(32, 100, 128, 32, "Test", menuFunc.bind(this));
 
     this.menus = [];
-	
-	//Graphics.init();
 }
 
 Engine.prototype =
