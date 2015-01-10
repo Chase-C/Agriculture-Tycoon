@@ -19,7 +19,7 @@ Farm.prototype =
 {
     performAction: function(action)
     {
-        if (action.name === 'sleep') {
+        if (action.name === 'Sleep') {
             this.days += 1;
             this.hours = 0;
             return true;
@@ -34,6 +34,10 @@ Farm.prototype =
         var haveWater = newWater >= 0;
         if (!haveTime || !haveWater || !haveMoney) {
             return false;
+        }
+
+        if (action.money > 0) {
+            this.income += action.money;
         }
 
         this.hours = newHours;
