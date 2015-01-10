@@ -49,5 +49,17 @@ CropSupply.prototype =
         });
 
         return supply;
+    },
+
+    buyCrop: function(crop, amount)
+    {
+        this.suppliers.map(function(sup) {
+            if (sup.cropType === crop && sup.amount >= amount) {
+                sup.amount -= amount;
+                return true;
+            }
+        });
+
+        return false;
     }
 }
