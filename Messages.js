@@ -32,7 +32,7 @@ Messages.prototype =
         canvas.fillStyle    = 'black';
 
         var padding         = 5;
-        for (var i = 0; i < this.posts.length; i++) {
+        for (var i = 0; i < 5 &&  this.posts.length > i; i++) {
             canvas.fillText(this.posts[i], this.x + padding, this.y * (i+1) + (this.h / 2));
         }
     }
