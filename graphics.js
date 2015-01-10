@@ -1,10 +1,11 @@
 var Graphics = {
-	worldWidth: 6000,
-	worldHeight: 5720,
-	portX: 200,
-	portY: 200,
+	worldWidth: 2600,
+	worldHeight: 2400,
+	portX: 1000,
+	portY: 250,
 	scrollSpeed: 4,
-	scrollMargins: [100, 150, 100, 150], //top right bottom left
+	scrollMargins1: [100, 150, 100, 150], //top right bottom left
+	scrollMargins2: [40, 50, 40, 40], //smaller margins for double speed
 	
 	//local image class
 	image: function(id, x, y){
@@ -55,20 +56,39 @@ var Graphics = {
 	},
 	
 	checkScroll: function(){
-		if(this.mouseY<this.scrollMargins[0]){
+		if(this.mouseY<this.scrollMargins1[0] && this.mouseY>0){
+			//move port
 			this.portY -= this.scrollSpeed;
+			//check for double speed
+			if(this.mouseY<this.scrollMargins2[0]){
+				this.portY -= this.scrollSpeed; 
+			}
+			//adjust if off-screen
 			if(this.portY < 0) this.portY = 0;
 		}
-		if(this.mouseX>this.portWidth-this.scrollMargins[1]){
+		if(this.mouseX>this.portWidth-this.scrollMargins1[1] && this.mouseX<this.portWidth){
 			this.portX += this.scrollSpeed;
-			if(this.portX > this.worldWidth-this.portWidth) this.portX = this.worldWidth-this.portWidth;
+			if(this.mouseX>this.portWidth-this.scrollMargins2[1]){
+				this.portX += this.scrollSpeed;
+			}
+			if(this.portX > this.worldWidth-this.portWidth){
+				this.portX = this.worldWidth-this.portWidth;
+			}
 		}
-		if(this.mouseY>this.portHeight-this.scrollMargins[2]){
+		if(this.mouseY>this.portHeight-this.scrollMargins1[2] && this.mouseY<this.portHeight){
 			this.portY += this.scrollSpeed;
-			if(this.portY > this.worldHeight-this.portHeight) this.portY = this.worldHeight-this.portHeight;
+			if(this.mouseY>this.portHeight-this.scrollMargins2[2]){
+				this.portY += this.scrollSpeed;
+			}
+			if(this.portY > this.worldHeight-this.portHeight){
+				this.portY = this.worldHeight-this.portHeight;
+			}
 		}
-		if(this.mouseX<this.scrollMargins[3]){
+		if(this.mouseX<this.scrollMargins1[3] && this.mouseX>0){
 			this.portX -= this.scrollSpeed;
+			if(this.mouseX<this.scrollMargins2[3]){
+				this.portX -= this.scrollSpeed;
+			}
 			if(this.portX <0) this.portX = 0;
 		}
 	}
