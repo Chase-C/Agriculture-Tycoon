@@ -1,6 +1,6 @@
 var Graphics = {
-	worldWidth: 2000,
-	worldHeight: 1200,
+	worldWidth: 6000,
+	worldHeight: 5720,
 	portX: 200,
 	portY: 200,
 	scrollSpeed: 4,
@@ -30,18 +30,17 @@ var Graphics = {
 		this.portHeight = height;
 		
 		//image initialization
-		this.background1 = new this.image("background1", 0, 0);
-		this.background2 = new this.image("background2", 500, 0);
-		this.background3 = new this.image("background3", 1000, 0);
-		this.background4 = new this.image("background4", 1500, 0);
-		this.background5 = new this.image("background5", 0, 600);
-		this.background6 = new this.image("background6", 500, 600);
-		this.background7 = new this.image("background7", 1000, 600);
-		this.background8 = new this.image("background8", 1500, 600);
+		//none yet
 		
 		//aray of images
-		this.images = [this.background1, this.background2, this.background3, this.background4,
-					   this.background5, this.background6, this.background7, this.background8];
+		this.images = [];
+		
+		//initialize map
+		for(var i=0;i<6;i++){
+			for(var j=0;j<13;j++){
+				this.images.push(new this.image("map"+i+"-"+j, 200*j, 400*i));
+			}
+		}
 	},
 	
 	drawWorld: function(){
@@ -56,14 +55,21 @@ var Graphics = {
 	},
 	
 	checkScroll: function(){
-		if(this.mouseY<this.scrollMargins[0] && this.portY >=0){
+		if(this.mouseY<this.scrollMargins[0]){
 			this.portY -= this.scrollSpeed;
-		}else if(this.mouseX>this.portWidth-this.scrollMargins[1] && this.portX <= this.worldWidth-this.portWidth){
+			if(this.portY < 0) this.portY = 0;
+		}
+		if(this.mouseX>this.portWidth-this.scrollMargins[1]){
 			this.portX += this.scrollSpeed;
-		}else if(this.mouseY>this.portHeight-this.scrollMargins[2] && this.portY <= this.worldHeight-this.portHeight){
+			if(this.portX > this.worldWidth-this.portWidth) this.portX = this.worldWidth-this.portWidth;
+		}
+		if(this.mouseY>this.portHeight-this.scrollMargins[2]){
 			this.portY += this.scrollSpeed;
-		}else if(this.mouseX<this.scrollMargins[3] && this.portX >= 0){
+			if(this.portY > this.worldHeight-this.portHeight) this.portY = this.worldHeight-this.portHeight;
+		}
+		if(this.mouseX<this.scrollMargins[3]){
 			this.portX -= this.scrollSpeed;
+			if(this.portX <0) this.portX = 0;
 		}
 	}
 }
