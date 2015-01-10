@@ -6,11 +6,11 @@ var Orders = {
 		this.venues = new Array("The Salad Palace", "Swav Mart", "The Health Nut", "Farmer's Market");
 		this.produce = new Array("Lettuce", "Apples", "Strawberries", "Brussel Sprouts", "Artichokes");
 		
-		this.stack.push([this.venues[3], this.produce[4], x]);
-		this.stack.push([this.venues[3], this.produce[3], x]);
-		this.stack.push([this.venues[3], this.produce[2], x]);
-		this.stack.push([this.venues[3], this.produce[1], x]);       
-		this.stack.push([this.venues[3], this.produce[0], x]);
+		for(int v=0;v<this.venues.length;v++){
+			for(int p=0;p<this.produce.length;p++){
+				this.stack.push([this.venues[v], this.produce[p], Math.floor(100*Math.random())]);
+			}
+		}
 		
 		var i = 0;
 		while(i < this.stack.length){ 
