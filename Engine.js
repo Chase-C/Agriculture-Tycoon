@@ -15,6 +15,12 @@ var Engine = function(w, h)
     this.testButton = new Button(32, 100, 128, 32, "Test", menuFunc.bind(this));
 
     this.menus = [];
+
+    this.messages = new Messages(256, 16, 280, 480);
+    this.messages.add('test');
+    this.messages.add('some more tests\nnow with newlines');
+
+	Graphics.initialize();
 }
 
 Engine.prototype =
@@ -79,6 +85,8 @@ Engine.prototype =
         for (var i = 0; i < this.menus.length; i++) {
             this.menus[i].draw(canvas);
         }
+
+        this.messages.draw(canvas);
     }
 	
 }
