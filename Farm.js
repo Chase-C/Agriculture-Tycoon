@@ -2,7 +2,14 @@ var Farm = function()
 {
     this.money = 1000;
     this.water = 1000;
+
+    this.cropType = 0;
+    this.crops    = [];
+
     this.items = [];
+
+    this.income       = 0;
+    this.expenditures = [];
 
     this.hours = 0;
     this.days  = 0;
@@ -33,13 +40,25 @@ Farm.prototype =
         this.money = newMoney;
         this.water = newWater;
         if (action.callback) {
-            action.callback();
+            action.callback(this);
         }
 
         return true;
     },
 
-    draw: function(canvas)
+    addItem: function(item)
     {
+        this.items.push(item);
+        this.expenditures.push(item.price);
+    },
+
+    payTaxes: function()
+    {
+        var federalTax = calculateFederalTax(this.income, this.expenditures);
+        var stateTax   = calculateStateTax  (this.income);
+
+        this.income       = 0;
+        this.expenditures = [];
+        this.money       -= federalTax + stateTax;
     }
 }

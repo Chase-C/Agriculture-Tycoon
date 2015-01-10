@@ -1,4 +1,4 @@
-var federalTax = function(income, expenditures)
+function calculateFederalTax(income, expenditures)
 {
     var partialExemption                = 0;
     var constantCostForPartialExemption = 164.60;
@@ -7,7 +7,7 @@ var federalTax = function(income, expenditures)
     var healthInsurance                 = 200;
     var propertyTax                     = 200;
 
-    var totalExpenditure = expenditures.reduce(function(x, y) { return x + y; });
+    var totalExpenditure = expenditures.reduce(function(x, y) { return x + y; }, 0);
     var partialExemption = totalExpenditure * 0.0275;
 
     var withholdingAllowances = expenditures.length * constantCostForPartialExemption;
@@ -55,4 +55,9 @@ var federalTax = function(income, expenditures)
         else if (amountOfTaxableGrossWage <= 17042) return 16973;
         else                                        return 17042;
     }
+}
+
+function calculateStateTax(income)
+{
+    return income * 0.01;
 }

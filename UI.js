@@ -12,7 +12,7 @@ UI.prototype =
         canvas.textAlign    = 'left';
         canvas.fillStyle    = 'black';
 
-        canvas.fillText(this.farm.money, 32, 16);
-        canvas.fillText(this.farm.water, 32, 48);
+        canvas.fillText('$' + this.farm.money.toFixed(2), 32, 16);
+        canvas.fillText(this.farm.water + ' Gal', 32, 48);
     }
 }

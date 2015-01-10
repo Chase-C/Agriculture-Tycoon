@@ -50,3 +50,12 @@ Button.prototype =
         canvas.fillText(this.text, this.x + (this.w / 2), this.y + (this.h / 2) + 3);
     }
 }
+
+function createActionButton(x, y, w, h, farm, action)
+{
+    var actionFunc = function() {
+        farm.performAction(action);
+    }
+
+    return new Button(x, y, w, h, action.name, actionFunc);
+}
