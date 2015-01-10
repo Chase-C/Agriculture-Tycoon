@@ -27,7 +27,6 @@ Engine.prototype =
         var currTime = Date.now();
         var dt = currTime - this.time;
 
-        // Put stuff here
         for (var i = 0; i < this.menus.length; i++) {
             if (this.menus[i].exit) {
                 this.menus.splice(i);

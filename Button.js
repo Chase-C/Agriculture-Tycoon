@@ -42,11 +42,11 @@ Button.prototype =
             canvas.strokeRect(this.x + 1, this.y + 1, this.w - 2, this.h - 2);
         }
 
-        canvas.font         = '14px sans-serif';
+        canvas.font         = '14px Swanky';
         canvas.textBaseline = 'middle';
         canvas.textAlign    = 'center';
         canvas.fillStyle    = 'black';
 
-        canvas.fillText(this.text, this.x + (this.w / 2), this.y + (this.h / 2));
+        canvas.fillText(this.text, this.x + (this.w / 2), this.y + (this.h / 2) + 3);
     }
 }

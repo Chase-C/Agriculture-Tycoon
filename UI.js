@@ -7,7 +7,7 @@ UI.prototype =
 {
     draw: function(canvas)
     {
-        canvas.font         = '14px sans-serif';
+        canvas.font         = '14px Swanky';
         canvas.textBaseline = 'top';
         canvas.textAlign    = 'left';
         canvas.fillStyle    = 'black';

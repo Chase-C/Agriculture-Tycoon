@@ -2,6 +2,11 @@ body {
     background-color: #444444;
 }
 
+@font-face {
+    font-family: "Swanky";
+    src: url('./images/FontdinerSwanky.ttf') format('truetype');
+}
+
 #container {
     width: 1000px;
     height: 600px;
