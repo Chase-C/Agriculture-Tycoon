@@ -60,7 +60,7 @@ var Graphics = {
 			irrigated: new this.image("irrigated"),
 			lettuce: new this.image("lettuce"),
 			strawberry: new this.image("strawberry"),
-			plowed: new this.image("plowed")
+			tilled: new this.image("tilled")
 		};
 		
 		//initialize map
