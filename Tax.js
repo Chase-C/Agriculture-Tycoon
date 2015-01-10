@@ -13,7 +13,7 @@ function calculateFederalTax(income, expenditures)
     var withholdingAllowances = expenditures.length * constantCostForPartialExemption;
 
     var semiWage         = income / 2;
-    var calculations     = semiWage - SRA - PERS - healthInsurance;
+    var calculations     = semiWage + SRA + PERS + healthInsurance;
     var taxableGrossWage = calculations - withholdingAllowances;
 
     var costOne    = incomeTaxToWithhold      (taxableGrossWage);
@@ -23,6 +23,7 @@ function calculateFederalTax(income, expenditures)
     var priceOne = taxableGrossWage - costTwo;
     var priceTwo = priceOne * percentage;
 
+    console.log(taxableGrossWage, priceTwo, partialExemption, costOne, propertyTax);
     return priceTwo + partialExemption + costOne + propertyTax;
 
     function incomeTaxToWithhold(amountOfTaxableGrossWage) {
@@ -47,7 +48,8 @@ function calculateFederalTax(income, expenditures)
     }
 
     function thirdIncomeTaxToWithhold(amountOfTaxableGrossWage) {
-        if      (amountOfTaxableGrossWage <= 472)   return 94;
+        if      (amountOfTaxableGrossWage <= 94)    return 0;
+        else if (amountOfTaxableGrossWage <= 472)   return 94;
         else if (amountOfTaxableGrossWage <= 1631)  return 472;
         else if (amountOfTaxableGrossWage <= 3817)  return 1632;
         else if (amountOfTaxableGrossWage <= 7858)  return 3817;
