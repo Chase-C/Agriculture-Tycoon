@@ -16,6 +16,15 @@ document.onmouseup = function(evt)
     engine.mouseUp(x, y);
 }
 
+document.onmousemove = function(evt)
+{
+	evt = evt || event;
+	var x = evt.pageX - $('canvas').offset().left;
+    var y = evt.pageY - $('canvas').offset().top;
+	
+	engine.mouseMove(x, y);
+}
+
 document.addEventListener('keydown', function(event) {
     engine.keyPress(event.keyCode) ;
 });

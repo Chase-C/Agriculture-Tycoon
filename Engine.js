@@ -16,7 +16,7 @@ var Engine = function(w, h)
 
     this.menus = [];
 	
-	Graphics.initialize();
+	//Graphics.init();
 }
 
 Engine.prototype =
@@ -58,6 +58,11 @@ Engine.prototype =
             this.menus[0].mouseUp(x, y);
         }
     },
+	
+	mouseMove: function(x, y)
+	{
+		Graphics.updatePos(x, y);
+	},
 
     // Functions for starting and stopping the simulation
     start: function() { this.running = true },
@@ -67,10 +72,8 @@ Engine.prototype =
 
     draw: function(canvas)
     {
-        canvas.fillStyle = 'white';
-        canvas.fillRect(0, 0, this.w, this.h);
-
-        Graphics.drawTiles(canvas);
+		Graphics.checkScroll();
+        Graphics.drawWorld();
 
         this.ui.draw(canvas);
 

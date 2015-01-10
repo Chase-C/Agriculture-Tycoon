@@ -4,7 +4,14 @@
         <title>Agriculture Tycoon</title>
         <link rel="stylesheet" type="text/css" href="./style.css" />
 		<div id="images">
-			<img id="dirt" src="./images/dirt.png">
+			<img id="background1" src="./images/background1.png">
+			<img id="background2" src="./images/background2.png">
+			<img id="background3" src="./images/background3.png">
+			<img id="background4" src="./images/background4.png">
+			<img id="background5" src="./images/background5.png">
+			<img id="background6" src="./images/background6.png">
+			<img id="background7" src="./images/background7.png">
+			<img id="background8" src="./images/background8.png">
 		</div>
         <script src="./libs/jquery-1.9.1.min.js"></script>
         <script src="./libs/thunder.js"></script>
@@ -31,8 +38,8 @@
                 }
                 canvas.width = 1000;
                 canvas.height = 600;
-
                 context = canvas.getContext('2d');
+				Graphics.init(context, canvas.width, canvas.height);
                 Run();
             }
             
