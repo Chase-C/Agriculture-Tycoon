@@ -11,7 +11,7 @@ window.getAnimationFrame = (function()
             return animFrame;
         })();
 
-var engine = new Engine(820, 640);
+var engine = new Engine(1000, 600);
 
 function Run()
 {

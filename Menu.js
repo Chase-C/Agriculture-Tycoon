@@ -29,8 +29,8 @@ Menu.prototype =
 
     mouseUp: function(x, y)
     {
-        var mx = this.transX(x);
-        var my = this.transY(y);
+        var mx = x - this.x;
+        var my = y - this.y;
 
         if (mx > this.closeX && mx < this.closeX + this.closeW &&
             my > this.closeY && my < this.closeY + this.closeH) {
@@ -40,20 +40,15 @@ Menu.prototype =
 
     draw: function(canvas)
     {
-        canvas.fillStyle = 'white';
-        canvas.fillRect(this.x, this.y, this.w, this.h);
-        canvas.strokeStyle = 'black';
-        canvas.strokeRect(this.x, this.y, this.w, this.h);
-        canvas.strokeRect(this.x + this.closeX, this.y + this.closeY, this.closeW, this.closeH);
-    },
-	
-    transX: function(tx)
-    {
-        return tx - this.x;
-    },
+        canvas.translate(this.x, this.y);
 
-    transY: function(ty)
-    {
-        return ty - this.y;
+        canvas.fillStyle   = 'white';
+        canvas.strokeStyle = 'black';
+
+        canvas.fillRect  (0, 0, this.w, this.h);
+        canvas.strokeRect(0, 0, this.w, this.h);
+        canvas.strokeRect(this.closeX, this.closeY, this.closeW, this.closeH);
+
+        canvas.translate(-this.x, -this.y);
     }
 }

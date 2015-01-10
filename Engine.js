@@ -6,6 +6,12 @@ var Engine = function(w, h)
     this.running = true;
     this.time = Date.now();
 
+    var menuFunc = function() {
+        this.menus.push(new Menu(256, 16, 320, 480));
+    }
+
+    this.testButton = new Button(32, 100, 128, 32, "Test", menuFunc.bind(this));
+
     this.menus = [];
 	
 	Graphics.initialize();
@@ -35,12 +41,17 @@ Engine.prototype =
 
     mouseDown: function(x, y)
     {
+        if (this.menus.length == 0) {
+            this.testButton.mouseDown(x, y);
+        } else {
+            this.menus[0].mouseDown(x, y);
+        }
     },
 
     mouseUp: function(x, y)
     {
         if (this.menus.length == 0) {
-            this.menus.push(new Menu(16, 16, 320, 480));
+            this.testButton.mouseUp(x, y);
         } else {
             this.menus[0].mouseUp(x, y);
         }
@@ -58,6 +69,8 @@ Engine.prototype =
         canvas.fillRect(0, 0, this.w, this.h);
 
         Graphics.drawTiles(canvas);
+
+        this.testButton.draw(canvas);
 
         for (var i = 0; i < this.menus.length; i++) {
             this.menus[i].draw(canvas);
