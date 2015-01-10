@@ -7,3 +7,7 @@ body {
     height: 640px;
     margin: auto;
 }
+
+#images {
+	display: none;
+}

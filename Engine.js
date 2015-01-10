@@ -7,6 +7,9 @@ var Engine = function(w, h)
     this.time = Date.now();
 
     this.menus = [];
+	
+	this.worldChanged = true;
+	Graphics.initialize();
 }
 
 Engine.prototype =
@@ -58,6 +61,11 @@ Engine.prototype =
         for (var i = 0; i < this.menus.length; i++) {
             this.menus[i].draw(canvas);
         }
-    },
+
+		if(this.worldChanged){
+			Graphics.drawTiles(canvas);
+			this.worldChanged = false;
+		}
+    }
 	
 }
