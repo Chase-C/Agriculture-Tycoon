@@ -7,6 +7,9 @@ var Engine = function(w, h)
     this.time = Date.now();
 
     this.time = Date.now();
+	
+	this.worldChanged = true;
+	Graphics.initialize();
 }
 
 Engine.prototype =
@@ -34,8 +37,10 @@ Engine.prototype =
 
     draw: function(canvas)
     {
-        canvas.fillStyle = 'white';
-        canvas.fillRect(0, 0, this.w, this.h);
-    },
+		if(this.worldChanged){
+			Graphics.drawTiles(canvas);
+			this.worldChanged = false;
+		}
+    }
 	
 }
