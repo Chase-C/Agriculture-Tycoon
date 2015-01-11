@@ -194,6 +194,14 @@ Farm.prototype =
         this.expenditures.push(item.price);
     },
 
+    updateCrops: function(time)
+    {
+        for (var i = 0; i < Land.length; i++) {
+            for (var j = 0; j < Land[i].length; j++) {
+            }
+        }
+    },
+
     payTaxes: function()
     {
         var federalTax = calculateFederalTax(this.income, this.expenditures);

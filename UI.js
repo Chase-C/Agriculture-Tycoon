@@ -20,5 +20,17 @@ UI.prototype =
 
         canvas.fillText('Money: $' + this.farm.money.toFixed(2), 16, 4);
         canvas.fillText('Water: '  + this.farm.water + ' Gal', 16, 26);
+
+        var mod = '';
+        for (var i = 0; i < Land.length; i++) {
+            for (var j = 0; j < Land[i].length; j++) {
+                if (Land[i][j].GMO === 1) {
+                    mod = ' (GMO)';
+                }
+            }
+        }
+
+        canvas.fillText('Crops: '  + Seeds.name[this.farm.cropType] + mod, 200, 4);
+        canvas.fillText('Amount: ' + this.farm.cropAmount, 200, 26);
     }
 }

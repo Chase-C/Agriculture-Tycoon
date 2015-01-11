@@ -9,12 +9,12 @@ var Engine = function(w, h)
     this.farm = new Farm();
     this.ui   = new UI(this.farm);
 
-    this.testCropSupply = new CropSupply(10);
+    this.cropSupply = new CropSupply(8);
     this.venues = ['Salad Palace',
                    'Health Nut',
                    'Swav Mart',
                    'Farmer\'s Market'].map((function(name) {
-                       return new Venue(name, this.testCropSupply);
+                       return new Venue(name, this.cropSupply);
                    }).bind(this));
 
     //this.testVenue      = new Venue('test', this.testCropSupply);
@@ -74,7 +74,7 @@ Engine.prototype =
             if (building >= 0) {
                 this.menus.push(createSellMenu(this.menus, this.farm, this.venues[building]));
             } else if (acre) {
-                this.farm.useTool(acre);
+                //this.farm.useTool(acre);
             }
         }
     },

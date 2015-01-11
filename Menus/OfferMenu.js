@@ -9,6 +9,14 @@ var createOfferMenu = function(farm, venue, price, num)
     if (willBuy) {
         text1 =  venue.name + ' agrees to purchase';
         text2 =  num + ' ' + Seeds.name[farm.cropType] + ' at $' + price + ' per unit.';
+
+        farm.cropAmount -= num;
+        farm.money      += price * num;
+        farm.income     += price * num;
+
+        venue.numProduce[farm.cropType] += num;
+
+        advanceTime(2);
     } else {
         text1 =  venue.name + ' rejects your offer of';
         text2 =  num + ' ' + Seeds.name[farm.cropType] + ' for $' + price + ' per unit.';
