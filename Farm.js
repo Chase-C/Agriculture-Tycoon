@@ -1,12 +1,32 @@
+function Item(price, maxUses, PE){
+	this.price = price
+	this.maxUses = maxUses;
+	this.uses = 0;
+	this.PE = PE;
+	this.held = false;
+	this.use = function(){
+		this.uses--;
+		if(this.uses===0) this.held = false;
+	}
+	this.obtain = function(){ //do not call this outside Farm.addTool()!!!
+		this.held = true;
+		this.uses = this.maxUses;
+	}
+}
+
 var Farm = function()
 {
     this.money = 1000;
     this.water = 1000;
 
     this.cropType = 0;
-    this.crops    = [];
 
-    this.items = [];
+    this.tools = {
+		shovel: new Item(10, 15, true),
+		tractor: new Item(500, 30, true),
+		helpingHand: new Item(100, 1, true),
+		tire: new Item(50, 1, false)
+	};
 
     this.income       = 0;
     this.expenditures = [];
@@ -50,9 +70,17 @@ Farm.prototype =
         return true;
     },
 
-    addItem: function(item)
+    addTool: function(itemName)
     {
-        this.items.push(item);
+		var item = this.tools[itemName];
+		if(this.money<item.price){
+			return; //not enough funds
+		}
+		if(item.held){
+			return; //already have one
+		}
+        item.obtain();
+		this.money -= item.price;
         this.expenditures.push(item.price);
     },
 
