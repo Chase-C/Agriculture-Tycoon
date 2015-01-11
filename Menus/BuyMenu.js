@@ -40,7 +40,6 @@ var createBuyMenu = function(menus, farm){
 		var buyFunc = (function(f, n, bf) {
 			switch(bf){
 				case 0:
-					console.log("hi");
 					f.addTool(n);
 					
 					break;
@@ -53,7 +52,7 @@ var createBuyMenu = function(menus, farm){
 			}
         }).bind(this, farm, name, buyF);
 		buyButton.setCallback(buyFunc);
-		if(farm.money < price) buyButton.active = false;
+		if(farm.money < price || (buyF===0 && farm.tools[name].held)) buyButton.active = false;
 		elements.push(buyButton);
 	}
 	
