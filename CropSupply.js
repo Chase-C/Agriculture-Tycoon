@@ -21,6 +21,7 @@ CropSupply.prototype =
 {
     update: function(hours)
     {
+        //console.log('Crop Supply Update');
         for (var i = 0; i < this.num; i++) {
             var sup = this.suppliers[i];
             sup.harvestTime -= hours;
@@ -35,7 +36,10 @@ CropSupply.prototype =
 
             var upperBound = 12 * sup.acres * Seeds.seedMakes[sup.cropType] / Seeds.growTime[sup.cropType];
             sup.saleReady  = sup.amount / upperBound;
+
+            //console.log(i, Seeds.name[sup.cropType], sup.amount);
         }
+        //console.log('Crop Supply Update End');
     },
 
     //distaster: function(type)

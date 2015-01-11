@@ -11,7 +11,7 @@ var Venue = function(name, cropSupply)
         var max = 64 * Seeds.seedMakes[i] / Seeds.growTime[i];
         this.maxProduce.push(max);
         this.numProduce.push(Math.random() * max / 2) + 20;
-        this.purchaseReady.push(this.cropDemand[i] * (1.5 - (this.numProduce[i] / this.maxProduce[i])));
+        this.purchaseReady.push(this.cropDemand[i] * (2 - (2 * this.numProduce[i] / this.maxProduce[i])));
     }
 
     this.supplierDist = [];
@@ -31,17 +31,25 @@ Venue.prototype =
             this.cropDemand[i]  = Math.min(Math.max(this.cropDemand[i], 0), 1);
 
             this.numProduce[i]   -= hours * this.maxProduce[i] * this.cropDemand[i] * Math.random() / 64;
-            this.purchaseReady[i] = this.cropDemand[i] * (1.5 - (this.numProduce[i] / this.maxProduce[i]));
+            if (this.numProduce[i] < 0) {
+                this.numProduce[i] = 0;
+                this.cropDemand[i] += 0.05;
+            }
+            console.log(i, Seeds.name[i], this.numProduce[i]);
+        }
 
+        for (var i = 0; i < this.numProduce.length; i++) {
+            this.purchaseReady[i] = this.cropDemand[i] * (2 - (2 * this.numProduce[i] / this.maxProduce[i]));
             var supplier = this.cropSupply.getSupply(i);
             if (supplier) {
-                var saleReady     = Math.min(supplier.saleReady,    4);
-                var purchaseReady = Math.min(this.purchaseReady[i], 4)
+                var saleReady     = Math.min(supplier.saleReady,    2);
+                var purchaseReady = Math.min(this.purchaseReady[i], 2)
 
                 var numUnits  = (this.maxProduce[i] - this.numProduce[i]) * this.cropDemand[i];
                 var salePower = Math.min(supplier.amount / numUnits, 1);
 
                 var saleThreshold = salePower * saleReady * purchaseReady;
+                //console.log(i, Seeds.name[i], this.cropDemand[i], purchaseReady, saleThreshold);
                 if (saleThreshold > 1) {
                     if (supplier.amount > numUnits) {
                         this.numProduce[i] += numUnits;
@@ -52,10 +60,8 @@ Venue.prototype =
                     }
                     i--;
                 }
-
-                console.log(i, Seeds.name[i], this.cropDemand[i], purchaseReady, saleThreshold);
             }
         }
-        console.log('Venue Update End\n');
+        //console.log('Venue Update End\n');
     }
 }
