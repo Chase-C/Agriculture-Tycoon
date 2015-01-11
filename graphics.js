@@ -6,6 +6,7 @@ var Graphics = {
 	scrollSpeed: 4,
 	scrollMargins1: [100, 150, 100, 150], //top right bottom left
 	scrollMargins2: [40, 50, 40, 40], //smaller margins for double speed
+	toolbarMargin: 48,
 	acresOriginX: 1260,
 	acresOriginY: 320,
 	
@@ -110,14 +111,17 @@ var Graphics = {
 	outlineBuildings: function(){
 		if(this.checkInQuad([[595,318],[883,511],[466,696],[125,474]])){
 			this.outlines.emporium.draw();
-		}else if(this.checkInQuad([[1482,1040],[1620,1122],[1385,1221],[1260,1132]])){
-			this.outlines.farmer.draw();
-		}else if(this.checkInQuad([[1104,1401],[1352,1612],[1200,1698],[920,1474]])){
-			this.outlines.nut.draw();
-		}else if(this.checkInQuad([[2091,1413],[2276,1613],[2124,1728],[1867,1563]])){
-			this.outlines.salad.draw();
-		}else if(this.checkInQuad([[854,887],[998,997],[817,1085],[651,958]])){
-			this.outlines.swav.draw();
+		}else{
+			var check = this.checkBuildings();
+			if(check==3){
+				this.outlines.farmer.draw();
+			}else if(check==1){
+				this.outlines.nut.draw();
+			}else if(check==0){
+				this.outlines.salad.draw();
+			}else if(check==2){
+				this.outlines.swav.draw();
+			}
 		}
 	},
 
@@ -129,7 +133,7 @@ var Graphics = {
 		}else if(this.checkInQuad([[2091,1413],[2276,1613],[2124,1728],[1867,1563]])){
             return 0; // Salad Palace
 		}else if(this.checkInQuad([[854,887],[998,997],[817,1085],[651,958]])){
-            return 3; // Swav Mart
+            return 2; // Swav Mart
 		}
         return -1;
 	},
@@ -169,40 +173,42 @@ var Graphics = {
 	},
 	
 	checkScroll: function(){
-		if(this.mouseY<this.scrollMargins1[0] && this.mouseY>0){
-			//move port
-			this.portY -= this.scrollSpeed;
-			//check for double speed
-			if(this.mouseY<this.scrollMargins2[0]){
-				this.portY -= this.scrollSpeed; 
+		if(this.mouseY>this.toolbarMargin){
+			if(this.mouseY<this.scrollMargins1[0]+this.toolbarMargin){
+				//move port
+				this.portY -= this.scrollSpeed;
+				//check for double speed
+				if(this.mouseY<this.scrollMargins2[0]+this.toolbarMargin){
+					this.portY -= this.scrollSpeed; 
+				}
+				//adjust if off-screen
+				if(this.portY < this.toolbarMargin) this.portY = 0;
 			}
-			//adjust if off-screen
-			if(this.portY < 0) this.portY = 0;
-		}
-		if(this.mouseX>this.portWidth-this.scrollMargins1[1] && this.mouseX<this.portWidth){
-			this.portX += this.scrollSpeed;
-			if(this.mouseX>this.portWidth-this.scrollMargins2[1]){
+			if(this.mouseX>this.portWidth-this.scrollMargins1[1] && this.mouseX<this.portWidth){
 				this.portX += this.scrollSpeed;
+				if(this.mouseX>this.portWidth-this.scrollMargins2[1]){
+					this.portX += this.scrollSpeed;
+				}
+				if(this.portX > this.worldWidth-this.portWidth){
+					this.portX = this.worldWidth-this.portWidth;
+				}
 			}
-			if(this.portX > this.worldWidth-this.portWidth){
-				this.portX = this.worldWidth-this.portWidth;
-			}
-		}
-		if(this.mouseY>this.portHeight-this.scrollMargins1[2] && this.mouseY<this.portHeight){
-			this.portY += this.scrollSpeed;
-			if(this.mouseY>this.portHeight-this.scrollMargins2[2]){
+			if(this.mouseY>this.portHeight-this.scrollMargins1[2] && this.mouseY<this.portHeight){
 				this.portY += this.scrollSpeed;
+				if(this.mouseY>this.portHeight-this.scrollMargins2[2]){
+					this.portY += this.scrollSpeed;
+				}
+				if(this.portY > this.worldHeight-this.portHeight){				
+					this.portY = this.worldHeight-this.portHeight;
+				}
 			}
-			if(this.portY > this.worldHeight-this.portHeight){				
-				this.portY = this.worldHeight-this.portHeight;
-			}
-		}
-		if(this.mouseX<this.scrollMargins1[3] && this.mouseX>0){
-			this.portX -= this.scrollSpeed;
-			if(this.mouseX<this.scrollMargins2[3]){
+			if(this.mouseX<this.scrollMargins1[3] && this.mouseX>0){
 				this.portX -= this.scrollSpeed;
+				if(this.mouseX<this.scrollMargins2[3]){
+					this.portX -= this.scrollSpeed;
+				}
+				if(this.portX <0) this.portX = 0;
 			}
-			if(this.portX <0) this.portX = 0;
 		}
 	},
 	

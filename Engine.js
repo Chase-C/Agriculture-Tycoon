@@ -70,11 +70,14 @@ Engine.prototype =
         } else {
             //this.testButton.mouseUp(x, y);
             var building = Graphics.checkBuildings();
-            var acre     = Graphics.getSelectedAcre();
+            var acreCoords = Graphics.getSelectedAcre();
             if (building >= 0) {
                 this.menus.push(createSellMenu(this.menus, this.farm, this.venues[building]));
-            } else if (acre) {
-                //this.farm.useTool(acre);
+				selectSound.play();
+            } else if (acreCoords) {
+				var acre = Land[acreCoords[0]][acreCoords[1]];
+                this.farm.useTool(acre);
+				selectSound.play();
             }
         }
     },

@@ -76,7 +76,7 @@ Farm.prototype =
 		 }else
 
 		//plant seeds
-		if(move == 3  && target.tilled == 1 && this.ater - 200 > 0){
+		if(move == 3  && target.tilled == 1 && this.water - 200 > 0){
 			day = day - 2;
 			target.tilled = 0;
 			target.planted = 1;
