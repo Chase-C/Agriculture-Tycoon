@@ -43,7 +43,17 @@ var Graphics = {
 		this.portHeight = height;
 		//added
 		 this.DFrames = [new this.image("gur1", 40, 500), new this.image("gur2", 40, 500), new this.image("gur3", 40, 500), new this.image("gur4", 40, 500)];
-          this.talk = new this.image("gurT", 100, 420);
+
+
+ this.talk = [new this.image("S1", 100, 420), 
+ new this.image("S2", 100, 420),
+  new this.image("S3", 100, 420), 
+  new this.image("S4", 100, 420), 
+  new this.image("S5", 100, 420),
+          new this.image("S6", 100, 420), 
+           new this.image("S7", 100, 420), 
+            new this.image("S8", 100, 420),  
+            new this.image("S9", 100, 420)];
 
 		//acres initialization
 		this.acres = {
@@ -168,10 +178,11 @@ var Graphics = {
             if(Graphics.danframN >= 4){
                 Graphics.danframN = 0;
             }
-          
+           var ind = engine.farm.hours % 10;
+
          Graphics.canvas.drawImage(this.DFrames[Graphics.danframN].elem, this.DFrames[Graphics.danframN].x, this.DFrames[Graphics.danframN].y);
           if(this.mouseX < 300 && this.mouseX > 20 && this.mouseY > 500){
-         Graphics.canvas.drawImage(this.talk.elem, this.talk.x, this.talk.y);
+         Graphics.canvas.drawImage(this.talk[ind].elem, this.talk[ind].x, this.talk[ind].y);
      }
          
     },
