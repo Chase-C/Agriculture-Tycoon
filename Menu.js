@@ -1,4 +1,4 @@
-var Menu = function(x, y, w, h, elements)
+var Menu = function(x, y, w, h, elements, close)
 {
     this.x = x || 0;
     this.y = y || 0;
@@ -10,7 +10,12 @@ var Menu = function(x, y, w, h, elements)
     var closeFunc = function() {
         this.exit = true;
     }
-    this.elements.push(new Button(this.w - 32, 0, 32, 32, "X", closeFunc.bind(this)));
+
+    if (close) {
+        this.elements.push(new Button((this.w / 2) - 50, this.h - 40, 100, 32, "Close", closeFunc.bind(this)));
+    } else {
+        this.elements.push(new Button(this.w - 32, 0, 32, 32, "X", closeFunc.bind(this)));
+    }
 
     this.exit = false;
 }

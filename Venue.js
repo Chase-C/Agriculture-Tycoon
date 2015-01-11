@@ -82,7 +82,7 @@ Venue.prototype =
     {
         var purchaseReady = Math.min(this.purchaseReady[crop], 2);
         var numUnits      = (this.maxProduce[crop] - this.numProduce[crop]) * this.cropDemand[crop];
-        var priceMod      = Seeds.price[crop] / price;
+        var priceMod      = Math.pow(Seeds.price[crop] / price, 2);
         var salePower     = priceMod * Math.min(num / numUnits, 1);
         return (purchaseReady * salePower > 1);
     }

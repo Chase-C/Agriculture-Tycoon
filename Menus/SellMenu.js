@@ -1,30 +1,52 @@
-var createSellMenu = function(farm, venue)
+var createSellMenu = function(menus, farm, venue)
 {
     var produce = venue.produceInDemand();
     var elements = [];
     elements.push(new Text(venue.name, 16, 16, 18));
 
     for (var i = 0; i < produce.length; i++) {
-        var numText = new Text(produce[i].num + ' ' + produce[i].name, 8, 48 + (i * 64), 14);
-        var numFunc = (function(t, name, num) {
-            t.text = num + ' ' + name
-        }).bind(this, numText, produce[i].name);
+        var priceMid = Seeds.price[produce[i].type];
+        var priceMin = 0.5 * priceMid;
+        var priceMax = 2.0 * priceMid;
 
-        elements.push(numText);
-        elements.push(new Slider(256, 47 + (i * 64), 256, 22, 0, produce[i].num, produce[i].num, 5, numFunc));
+        var numText     = new Text(produce[i].num + ' ' + produce[i].name, 16, 68 + (i * 64), 14);
+        var numSlider   = new Slider(190, 67 + (i * 64), 256, 22, 0, produce[i].num, produce[i].num, 5, null);
+        var priceText   = new Text('Price: $' + Seeds.price[i], 16, 92 + (i * 64), 14);
+        var priceSlider = new Slider(190, 93 + (i * 64), 256, 22, priceMin, priceMax, priceMid, 5, null);
+        var offerButton = new Button(476, 74 + (i * 64), 96,  32, 'Offer', null);
 
-        var priceText = new Text('Price: $' + Seeds.price[i], 8, 72 + (i * 64), 14);
+        var numFunc = (function(t, name, f, button, num) {
+            t.text = num + ' ' + name;
+            if (num > f.cropAmount) {
+                button.active = false;
+            } else {
+                button.active = true;
+            }
+        }).bind(this, numText, produce[i].name, farm, offerButton);
+
+
         var priceFunc = (function(t, price) {
             t.text = 'Price: $' + price;
         }).bind(this, priceText);
 
-        elements.push(priceText);
+        var offerFunc = (function(m, f, v, p, n) {
+            m.push(createOfferMenu(f, v, p.val, n.val));
+        }).bind(this, menus, farm, venue, priceSlider, numSlider);
 
-        var priceMid = Seeds.price[produce[i].type];
-        var priceMin = 0.5 * priceMid;
-        var priceMax = 2.0 * priceMid;
-        elements.push(new Slider(256, 73 + (i * 64), 256, 22, priceMin, priceMax, priceMid, 5, priceFunc));
+        numSlider.setCallback(numFunc);
+        priceSlider.setCallback(priceFunc);
+        offerButton.setCallback(offerFunc);
+
+        elements.push(numText);
+        elements.push(numSlider);
+        elements.push(priceText);
+        elements.push(priceSlider);
+
+        if (farm.cropType != i || farm.cropAmount < numSlider.val) {
+            offerButton.active = false;
+        }
+        elements.push(offerButton);
     }
 
-    return new Menu(200, 40, 600, 520, elements);
+    return new Menu(200, 122, 600, 400, elements);
 }

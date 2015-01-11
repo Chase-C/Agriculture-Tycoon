@@ -6,7 +6,8 @@ var Farm = function()
     this.money = 1000;
     this.water = 1000;
 
-    this.cropType = 0;
+    this.cropType   = 0;
+    this.cropAmount = 100;
 
     this.tools = {
 		shovel: new Item(10, 15, true),

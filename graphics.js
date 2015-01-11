@@ -83,14 +83,22 @@ var Graphics = {
 					image = this.acres.apple2;
 				}else if(Land[i][j].apples){
 					image = this.acres.apple1;
-				}else if(Land[i][j].brussel){
+				}else if(Land[i][j].ripe && Land[i][j].brussel){
 					image = this.acres.brussel2;
-				}else if(Land[i][j].strawberries){
+				}else if(Land[i][j].brussel){
+					image = this.acres.brussel1;
+				}else if(Land[i][j].ripe && Land[i][j].strawberries){
 					image = this.acres.strawberry2;
+				}else if(Land[i][j].strawberries){
+					image = this.acres.strawberry1;
+				}else if(Land[i][j].ripe && Land[i][j].artichokes){
+					image = this.acres.artichoke2;
 				}else if(Land[i][j].artichokes){
+					image = this.acres.artichoke1;
+				}else if(Land[i][j].ripe && Land[i][j].lettuce){
 					image = this.acres.lettuce2;
 				}else if(Land[i][j].lettuce){
-					image = this.acres.artichoke2;
+					image = this.acres.lettuce1;
 				}else if(Land[i][j].tilled){
 					image = this.acres.tilled;
 				}

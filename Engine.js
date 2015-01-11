@@ -10,12 +10,10 @@ var Engine = function(w, h)
     this.ui   = new UI(this.farm);
 
     this.testCropSupply = new CropSupply(10);
-    console.log(this.testCropSupply);
     this.venues = ['Salad Palace',
                    'Health Nut',
                    'Swav Mart',
                    'Farmer\'s Market'].map((function(name) {
-                       console.log(this.testCropSupply);
                        return new Venue(name, this.testCropSupply);
                    }).bind(this));
 
@@ -52,14 +50,14 @@ Engine.prototype =
 	
 	keyPress: function(keyCode)
     {
-        this.testCropSupply.update(8);
-        this.testVenue.update(8);
+        //this.testCropSupply.update(8);
+        //this.testVenue.update(8);
     },
 
     mouseDown: function(x, y)
     {
         if (this.menus.length > 0) {
-            this.menus[0].mouseDown(x, y);
+            this.menus[this.menus.length - 1].mouseDown(x, y);
         } else {
             //this.testButton.mouseDown(x, y);
         }
@@ -71,9 +69,12 @@ Engine.prototype =
             this.menus[this.menus.length - 1].mouseUp(x, y);
         } else {
             //this.testButton.mouseUp(x, y);
-            var building = Graphics.checkBuildings(x, y);
+            var building = Graphics.checkBuildings();
+            var acre     = Graphics.getSelectedAcre();
             if (building >= 0) {
-                this.menus.push(createSellMenu(this.farm, this.venues[building]));
+                this.menus.push(createSellMenu(this.menus, this.farm, this.venues[building]));
+            } else if (acre) {
+                this.farm.useTool(acre);
             }
         }
     },

@@ -7,6 +7,7 @@ var Button = function(x, y, w, h, text, cb)
 
     this.text     = text;
     this.clicked  = false;
+    this.active   = true;
     this.callback = cb;
 }
 
@@ -15,7 +16,7 @@ Button.prototype =
     mouseDown: function(mx, my)
     {
         if (mx > this.x && mx < this.x + this.w &&
-            my > this.y && my < this.y + this.h) {
+            my > this.y && my < this.y + this.h && this.active) {
             this.clicked = true;
         }
     },
@@ -23,20 +24,26 @@ Button.prototype =
     mouseUp: function(mx, my)
     {
         if (mx > this.x && mx < this.x + this.w &&
-            my > this.y && my < this.y + this.h) {
+            my > this.y && my < this.y + this.h && this.clicked) {
             this.clicked = false;
             this.callback();
         }
     },
 
-    mouseMove: function(mx, my)
+    setCallback: function(func)
     {
+        this.callback = func;
     },
 
     draw: function(canvas)
     {
-        canvas.fillStyle   = 'white';
-        canvas.strokeStyle = 'black';
+        if (this.active) {
+            canvas.fillStyle   = 'white';
+            canvas.strokeStyle = 'black';
+        } else {
+            canvas.fillStyle   = '#CCCCCC';
+            canvas.strokeStyle = '#333333';
+        }
 
         canvas.fillRect  (this.x, this.y, this.w, this.h);
         canvas.strokeRect(this.x, this.y, this.w, this.h);
@@ -49,7 +56,11 @@ Button.prototype =
         canvas.font         = '14px Swanky';
         canvas.textBaseline = 'middle';
         canvas.textAlign    = 'center';
-        canvas.fillStyle    = 'black';
+        if (this.active) {
+            canvas.fillStyle    = 'black';
+        } else {
+            canvas.fillStyle   = '#555555';
+        }
 
         canvas.fillText(this.text, this.x + (this.w / 2), this.y + (this.h / 2) + 3);
     }

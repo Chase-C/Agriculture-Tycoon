@@ -81,6 +81,11 @@ Slider.prototype =
         return this.x + (step * this.stepW);
     },
 
+    setCallback: function(func)
+    {
+        this.callback = func;
+    },
+
     draw: function(canvas)
     {
         canvas.fillStyle   = 'white';
