@@ -2,7 +2,7 @@
 //OF: organic fertilizer; CF: chemical fertilizer
 //GS: grocery store; R: restaurant; FM: farmer's market
 var Seeds = {
-    name:             ['lettuce', 'apples', 'strawberries', 'brussel sprouts', 'artichokes'],
+    name:             ['lettuce', 'apple', 'strawberry', 'brussel', 'artichoke'],
     price:            [50,        90,       100,            70,                150], 
     seedMakes:        [50,        70,       30,             60,                40], //x's
     growTime:         [2,         2,        4,              7,                 10],
