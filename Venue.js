@@ -63,5 +63,18 @@ Venue.prototype =
             }
         }
         //console.log('Venue Update End\n');
+    },
+
+    produceInDemand: function()
+    {
+        var produce = [];
+        for (var i = 0; i < this.numProduce.length; i++) {
+            produce.push({
+                name:   Seeds.name[i],
+                demand: this.cropDemand[i],
+                num:    (this.maxProduce[i] - this.numProduce[i]) * this.cropDemand[i]
+            });
+        }
+        return produce;
     }
 }

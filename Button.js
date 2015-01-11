@@ -29,6 +29,10 @@ Button.prototype =
         }
     },
 
+    mouseMove: function(mx, my)
+    {
+    },
+
     draw: function(canvas)
     {
         canvas.fillStyle   = 'white';

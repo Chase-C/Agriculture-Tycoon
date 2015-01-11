@@ -16,9 +16,9 @@ var Engine = function(w, h)
 
     this.menus = [];
 
-    this.messages = new Messages(256, 16, 280, 480);
-    this.messages.add('test');
-    this.messages.add('some more tests\nnow with newlines');
+    //this.messages = new Messages(256, 16, 280, 480);
+    //this.messages.add('test');
+    //this.messages.add('some more tests\nnow with newlines');
 
     this.testCropSupply = new CropSupply(10);
     this.testVenue      = new Venue('test', this.testCropSupply);
@@ -67,6 +67,9 @@ Engine.prototype =
 	
 	mouseMove: function(x, y)
 	{
+        if (this.menus.length != 0) {
+            this.menus[0].mouseMove(x, y);
+        }
 		Graphics.updatePos(x, y);
 	},
 
@@ -89,7 +92,7 @@ Engine.prototype =
             this.menus[i].draw(canvas);
         }
 
-        this.messages.draw(canvas);
+        //this.messages.draw(canvas);
     }
 	
 }
