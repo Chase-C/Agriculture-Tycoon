@@ -1,3 +1,11 @@
+var produceKey = { //keep this for Purposes
+	lettuce: 0,
+	apple: 1,
+	strawberry: 2,
+	brussel: 3,
+	artichoke: 4
+}
+
 //just temporary until we figure out time
 var day = 0;
 
@@ -232,6 +240,51 @@ Farm.prototype =
         this.money -= item.price;
         this.expenditures.push(item.price);
     },
+	
+	addSeeds: function(seedName){
+		var price;
+		switch(seedName){
+			case 'lettuce':
+				price = Seeds.price[0];
+				break;
+			case 'apple':
+				price = Seeds.price[1];
+				break;
+			case 'strawberry':
+				price = Seeds.price[2];
+				break;
+			case 'brussel':
+				price = Seeds.price[3];
+				break;
+			case 'artichoke':
+				price = Seeds.price[4];
+				break;
+		}
+		if(this.money<price){
+		    return; //not enough funds
+        }
+        this.seeds[seedName]++;
+        this.money -= item.price;
+        this.expenditures.push(item.price);
+	},
+	
+	addBonus: function(name){
+		var price;
+		switch(name){
+			case 'pesticide':
+				price = pesticidePrice;
+				break;
+			case 'fertilizer':
+				price = OFPrice;
+				break;
+		}
+		if(this.money<price){
+		    return; //not enough funds
+        }
+        this[name]++;
+        this.money -= item.price;
+        this.expenditures.push(item.price);
+	},
 
     updateCrops: function(time)
     {
