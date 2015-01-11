@@ -9,6 +9,7 @@ var Menu = function(x, y, w, h, elements, close)
 
     var closeFunc = function() {
         this.exit = true;
+		selectSound.play();
     }
 
     if (close) {

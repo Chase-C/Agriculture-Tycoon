@@ -33,6 +33,8 @@ var Engine = function(w, h)
     //this.messages = new Messages(256, 16, 280, 480);
     //this.messages.add('test');
     //this.messages.add('some more tests\nnow with newlines');
+	
+	soundtrack.play();
 }
 
 Engine.prototype =
@@ -77,10 +79,13 @@ Engine.prototype =
 
             var building = Graphics.checkBuildings();
             var acreCoords = Graphics.getSelectedAcre();
-            if (building >= 0) {
+            if (building > 0) {
                 this.menus.push(createSellMenu(this.menus, this.farm, this.venues[building]));
 				selectSound.play();
-            } else if (acreCoords) {
+            } else if (building == 0) {
+				this.menus.push(createBuyMenu(this.menus, this.farm));
+				selectSound.play();
+			} else if (acreCoords) {
 				var acre = Land[acreCoords[0]][acreCoords[1]];
                 this.farm.useItem(acre);
 				selectSound.play();
