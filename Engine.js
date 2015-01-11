@@ -26,6 +26,10 @@ var Engine = function(w, h)
 
     this.menus = [];
 
+    this.invButton = new Button(860, 8, 112, 32, 'Inventory', (function() {
+        this.menus.push(createInventoryMenu(this.farm));
+    }).bind(this));
+
     //this.messages = new Messages(256, 16, 280, 480);
     //this.messages.add('test');
     //this.messages.add('some more tests\nnow with newlines');
@@ -60,6 +64,7 @@ Engine.prototype =
             this.menus[this.menus.length - 1].mouseDown(x, y);
         } else {
             //this.testButton.mouseDown(x, y);
+            this.invButton.mouseDown(x, y);
         }
     },
 
@@ -68,7 +73,8 @@ Engine.prototype =
         if (this.menus.length > 0) {
             this.menus[this.menus.length - 1].mouseUp(x, y);
         } else {
-            //this.testButton.mouseUp(x, y);
+            this.invButton.mouseUp(x, y);
+
             var building = Graphics.checkBuildings();
             var acreCoords = Graphics.getSelectedAcre();
             if (building >= 0) {
@@ -76,7 +82,7 @@ Engine.prototype =
 				selectSound.play();
             } else if (acreCoords) {
 				var acre = Land[acreCoords[0]][acreCoords[1]];
-                this.farm.useTool(acre);
+                this.farm.useItem(acre);
 				selectSound.play();
             }
         }
@@ -104,7 +110,7 @@ Engine.prototype =
 
         this.ui.draw(canvas);
 
-        //this.testButton.draw(canvas);
+        this.invButton.draw(canvas);
 
         for (var i = 0; i < this.menus.length; i++) {
             this.menus[i].draw(canvas);

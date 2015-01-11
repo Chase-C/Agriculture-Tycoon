@@ -16,6 +16,28 @@ var Farm = function()
 		tire: new Item(50, 1, false)
 	};
 
+    this.tools.shovel.obtain();
+    this.tools.tractor.obtain();
+
+    this.seeds = {
+        lettuce:    10,
+        apple:      10,
+        strawberry: 10,
+        brussel:    10,
+        artichoke:  10
+    };
+
+    this.pesticide  = 10;
+    this.fertilizer = 10;
+
+    this.text = ['Shovel', 'Tractor', 'Lettuce Seeds', 'Apple Saplings', 'Strawberry Seeds',
+                 'Brussel Sprout Seeds', 'Artichoke Seeds', 'Pesticide', 'Fertilizer', 'Harvest'];
+    this.inv  = [this.tools.shovel.held, this.tools.tractor.held, this.seeds.lettuce, this.seeds.apple,
+                 this.seeds.strawberry, this.seeds.brussel, this.seeds.artichoke, this.pesticide,
+                 this.fertilizer, 1];
+
+    this.selection = -1;
+
     this.income       = 0;
     this.expenditures = [];
 
@@ -58,10 +80,21 @@ Farm.prototype =
 
         return true;
     },
+
+    selectItem: function(item)
+    {
+        this.selection = item;
+    },
+	
+    useItem: function(target)
+    {
+        this.farmMove(this.selection + 1, target);
+    },
 	
 	farmMove: function(move, target){
 		//till by shov
 		if(move == 1 && this.tools.shovel.held && target.blank){
+            console.log('til');
 			day = day - 6;
 			target.tilled = 1;
 			target.blank = 0;
@@ -83,7 +116,7 @@ Farm.prototype =
 			target.lettuce = 1;
 			this.water -= 200;
 			target.pestRepel = .4;
-
+            this.inv[move - 1]--;
 
 		}else
 
@@ -95,6 +128,7 @@ Farm.prototype =
 			target.apples = 1;
 			this.water -= 200;
 			target.pestRepel = .5;
+            this.inv[move - 1]--;
 		}else
 
 		//plant seeds
@@ -105,6 +139,7 @@ Farm.prototype =
 			target.strawberries = 1;
 			this.water -= 100;
 			target.pestRepel = .3;
+            this.inv[move - 1]--;
 		}else
 
 		//plant seeds
@@ -115,6 +150,7 @@ Farm.prototype =
 			target.brussel = 1;
 			this.water -= 100;
 			target.pestRepel = .4;
+            this.inv[move - 1]--;
 		}else
 
 		//plant seeds
@@ -125,6 +161,7 @@ Farm.prototype =
 			target.artichokes = 1;
 			this.water -= 100;
 			target.pestRepel = .5;
+            this.inv[move - 1]--;
 		}else
 
 
@@ -132,6 +169,7 @@ Farm.prototype =
 		if(move == 8 && target.planted){
 			day = day - 2;
 		   target.pestRepel = pestRepel + .1;
+            this.inv[move - 1]--;
 		}else
 
 		//organic
@@ -139,6 +177,7 @@ Farm.prototype =
 			day = day - 4;
 			target.fertile = 1;
 			target.growthRate = 1.3;
+            this.inv[move - 1]--;
 		}else
 		
 		//non organic fertilizer
