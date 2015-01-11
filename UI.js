@@ -32,7 +32,7 @@ UI.prototype =
 
         if (this.farm.cropType >= 0) {
             canvas.fillText('Crops: '  + Seeds.name[this.farm.cropType] + mod, 240, 4);
-            canvas.fillText('Amount: ' + this.farm.cropAmount[this.farm.cropType], 240, 26);
+            canvas.fillText('Amount: ' + Math.round(this.farm.cropAmount[this.farm.cropType]), 240, 26);
         } else {
             canvas.fillText('No Crops', 240, 4);
         }
