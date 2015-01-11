@@ -3,7 +3,7 @@ var createBuyMenu = function(menus, farm){
 	var price;
 	var buyF;
 	var name;
-	for(var i=0;i<farm.text.length-1;i++){
+	for(var i=0;i<farm.text.length;i++){
 		switch(i){
 			case 0:
 				price = farm.tools.shovel.price;
@@ -34,8 +34,13 @@ var createBuyMenu = function(menus, farm){
 				buyF = 2;
 				name = 'fertilizer';
 				break;
+			case 9:
+				price = 100
+				buyF = 3;
+				name = 'water';
+				break;
 		}
-		elements.push(new Text(farm.text[i]+": $"+price, 16+250*(i%2), 68+80*Math.floor(i/2), 14));
+		elements.push(new Text((i==9? "Water" : farm.text[i])+": $"+price, 16+250*(i%2), 68+80*Math.floor(i/2), 14));
 		var buyButton = new Button(16+250*(i%2), 90+80*Math.floor(i/2), 96,  32, 'Buy', null);
 		var buyFunc = (function(f, n, bf) {
 			switch(bf){
@@ -49,6 +54,8 @@ var createBuyMenu = function(menus, farm){
 				case 2:
 					f.addBonus(n);
 					break
+				case 3:
+					f.addWater(n);
 			}
         }).bind(this, farm, name, buyF);
 		buyButton.setCallback(buyFunc);

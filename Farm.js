@@ -340,6 +340,16 @@ Farm.prototype =
         this.money -= price;
         this.expenditures.push(price);
 	},
+	
+	addWater: function(name){
+		var price = 100;
+		if(this.money<price){
+		    return; //not enough funds
+        }
+        this.water += 1000;
+        this.money -= price;
+        this.expenditures.push(price);
+	},
 
     updateCrops: function(time)
     {
