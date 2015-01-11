@@ -1,0 +1,104 @@
+function failedMessage(x, y){
+    var failedMessage = new failedMessage();
+    
+    if(x == "Lettuce" && y == "Earthquake"){//Start for earthquake.
+    
+    failedMessage.add("An earthquake just occured! Some of your " + x + " crops got destroyed.");
+    
+    }else if(x == "Apples" && y == "Earthquake"){
+    
+     failedMessage.add("An earthquake just occured! Some of your " + x + " crops got destroyed.");
+    
+    }else if(x == "Strawberries" && y == "Earthquake"){
+    
+     failedMessage.add("An earthquake just occured! Some of your " + x + " crops got destroyed.");
+    
+    }else if(x == "Brussel Sprouts" && y == "Earthquake"){
+    
+     failedMessage.add("An earthquake just occured! Some of your " + x + " crops got destroyed.");
+    
+    }else if(x == "Artichokes" && y == "Earthquake"){
+    
+     failedMessage.add("An earthquake just occured! Some of your " + x + " crops got destroyed.");
+    
+    }else if(x == "Lettuce" && y == "Flood"){//Start for flood.
+    
+        failedMessage.add("A flood came through your farm! Some of your " + x + " crops got destroyed.");
+        
+    }else if(x == "Apples" && y == "Flood"){
+    
+        failedMessage.add("A flood came through your farm! Some of your " + x + " crops got destroyed.");
+    
+    }else if(x == "Strawberries" && y == "Flood"){
+    
+        failedMessage.add("A flood came through your farm! Some of your " + x + " crops got destroyed.");
+    
+    }else if(x == "Brussel Sprouts" && y == "Flood"){
+    
+        failedMessage.add("A flood came through your farm! Some of your " + x + " crops got destroyed.");
+    
+    }else if(x == "Artichokes" && y == "Flood"){
+    
+        failedMessage.add("A flood came through your farm! Some of your " + x + " crops got destroyed.");
+    
+    }else if(x == "Lettuce" && y == "Bugs"){//Start with bug.
+    
+         failedMessage.add("The bug swarm infested your fields! Some of your " + x + " crops got eaten.");
+    
+    }else if(x == "Apples" && y == "Bugs"){
+    
+         failedMessage.add("The bug swarm infested your fields! Some of your " + x + " crops got eaten.");
+    
+    }else if(x == "Strawberries" && y == "Bugs"){
+    
+         failedMessage.add("The bug swarm infested your fields! Some of your " + x + " crops got eaten.");
+    
+    }else if(x == "Brussel Sprouts" && y == "Bugs"){
+    
+         failedMessage.add("The bug swarm infested your fields! Some of your " + x + " crops got eaten.");
+    
+    }else if(x == "Artichokes" && y == "Bugs"){
+    
+         failedMessage.add("The bug swarm infested your fields! Some of your " + x + " crops got eaten.");
+    
+    }else if(x == "Lettuce" && y == "Fire"){//Start with fire
+    
+        failedMessage.add("Oh no! A fire! Some of your " + x + " crops got burned down.");
+    
+    }else if(x == "Apples" && y == "Fire"){
+    
+        failedMessage.add("Oh no! A fire! Some of your " + x + " crops got burned down.");
+    
+    }else if(x == "Strawberries" && y == "Fire"){
+    
+        failedMessage.add("Oh no! A fire! Some of your " + x + " crops got burned down.");
+    
+    }else if(x == "Brussel Sprouts" && y == "Fire"){
+    
+        failedMessage.add("Oh no! A fire! Some of your " + x + " crops got burned down.");
+    
+    }else if(x == "Artichokes" && y == "Fire"){
+    
+        failedMessage.add("Oh no! A fire! Some of your " + x + " crops got burned down.");
+    
+    }else if(x == "Lettuce" && y == "Drought"){//Start with drought.
+        
+        failedMessage.add("A terrbile drought occured! Some of your " + x + " crops died.");
+    
+    }else if(x == "Apples" && y == "Drought"){
+    
+        failedMessage.add("A terrbile drought occured! Some of your " + x + " crops died.");
+    
+    }else if(x == "Strawberries" && y == "Drought"){
+    
+        failedMessage.add("A terrbile drought occured! Some of your " + x + " crops died.");
+        
+    }else if(x == "Brussel Sprouts" && y == "Drought"){
+    
+        failedMessage.add("A terrbile drought occured! Some of your " + x + " crops died.");
+    
+    }else if(x == "Artichokes" && y == "Drought"){
+    
+        failedMessage.add("A terrbile drought occured! Some of your " + x + " crops died.");
+    
+    }

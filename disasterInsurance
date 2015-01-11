@@ -1,0 +1,33 @@
+function disasterInsurance(a, b){
+    var insuranceAccount = b;//Will be amount of money they give to the insurance
+    var insurance = new insurance();
+    
+   if(a == "Pesticides"){
+   
+    insurance.add("Oh no! Bugs have infested your farm! Good thing you used pesticides. Your crops took no damage.);
+   
+   }else if(a == "Drought){
+   
+    insurance.add("Due to the recent drought, your insurance will be paying you $" + insuranceAccount/2 + " to help rebuild your farm.");
+   
+   }else if(a == "Earthquake"){
+   
+   insurance.add("Due to the recent earthquake, your insurance will be paying you $" + insuranceAccount/2 + " to help rebuild your farm.");
+    
+    }else if(a == "Flood"){
+    
+    insurance.add("Due to the recent flood, your insurance will be paying you $" + insuranceAccount/2 + " to help rebuild your farm.");
+    
+    }else if(a == "Bugs"){
+    
+        insurance.add("Due to the recent bug infestation, your insurance will be paying you $" + insuranceAccount/2 + " to help rebuild your farm.");
+    
+    }else if(a == "Fire"){
+    
+        insurance.add("Due to the recent fire, your insurance will be paying you $" + insuranceAccount/2 + " to help rebuild your farm.");
+    
+    }else if(a == "Drought"){
+    
+        insurance.add("Due to the recent drought, your insurance will be paying you $" + insuranceAccount/2 + " to help rebuild your farm.");
+        }
+    }
