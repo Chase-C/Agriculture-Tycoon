@@ -36,9 +36,7 @@ var Engine = function(w, h)
 
     this.buttons = [this.invButton, this.cropButton];
 
-    //this.messages = new Messages(256, 16, 280, 480);
-    //this.messages.add('test');
-    //this.messages.add('some more tests\nnow with newlines');
+    this.messages = new Messages(228, 540, 500, 60);
 	
 	soundtrack.play();
 }

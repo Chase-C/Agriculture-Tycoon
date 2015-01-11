@@ -15,7 +15,7 @@ function Acre(){
 	this.state= Array(this.tilled,this.planted , this.ripe, this.ruined, this.fertile );
 
 	//growth timer
-	this.countdown = 0;
+	this.timer = 0;
 
 	
 	this.growthRate=1.0;

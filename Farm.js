@@ -12,13 +12,13 @@ var day = 0;
 var Farm = function()
 {
     this.money = 1000;
-    this.water = 1000;
+    this.water = 10000;
 
     this.cropType   = -1;
-    this.cropAmount = [1000, 1000, 100, 100, 1000];
+    this.cropAmount = [0, 0, 0, 0, 0];
 
     this.tools = {
-		shovel: new Item(10, 15, true),
+		shovel: new Item(10, 30, true),
 		tractor: new Item(500, 30, true),
 		helpingHand: new Item(100, 1, true),
 		tire: new Item(50, 1, false)
@@ -189,7 +189,7 @@ Farm.prototype =
         }else if(this.fertilizer > 0 && move == 9 && target.fertile == 0 ){
             //pesticides
             day = day - 2;
-            target.pestRepel = pestRepel + .1;
+            //target.pestRepel = pestRepel + .1;
             //organic
             target.fertile = 1;
             target.growthRate = 1.3;
@@ -202,11 +202,17 @@ Farm.prototype =
             var harvest = 0;
             var crop = Array( target.lettuce, target.apples, target.strawberries, target.brussel, target.artichokes);
             for(var i = 0; i < crop.length; i++){
-                if(target.crop[i] == 1){
+                if(crop[i] == 1){
                     harvest = i;
                     break;
                 }
             }
+
+            var t = target;
+            var c = t.lettuce + (2 * t.apples) + (3 * t.strawberries) + (4 * t.brussel) + (6 * t.artichokes) - 1;
+            console.log(c);
+            this.cropAmount[c] += Seeds.seedMakes[c];
+
 			advanceTime(10);
             target.blank=1;
             target.lettuce=0;
@@ -228,13 +234,10 @@ Farm.prototype =
 		
 			target.ripe = 0;
 			var harvest = 0;
-			var crop = Array( target.lettuce, target.apples, target.strawberries, target.brussel, target.artichokes);
-			for(var i = 0; i < crop.length; i++){
-				if(target.crop[i] == 1){
-					harvest = i;
-					break;
-				}
-			}
+
+            var c = t.lettuce + (2 * t.apples) + (3 * t.strawberries) + (4 * t.brussel) + (6 * t.artichokes) - 1;
+            console.log(c);
+            this.cropAmount[c] += Seeds.seedMakes[c];
 
 			target.blank=1;
 			target.lettuce=0;
@@ -276,7 +279,6 @@ Farm.prototype =
         }
         item.obtain();
         this.money -= item.price;
-		console.log(item.price);
         this.expenditures.push(item.price);
     },
 
@@ -345,6 +347,10 @@ Farm.prototype =
     {
         for (var i = 0; i < Land.length; i++) {
             for (var j = 0; j < Land[i].length; j++) {
+                Land[i][j].timer += time;
+                if (Land[i][j].timer > Seeds.growTime[this.cropType]) {
+                    Land[i][j].ripe = 1;
+                }
             }
         }
 

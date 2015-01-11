@@ -82,12 +82,13 @@ function weather(){
 		 if(sunDaysInRow < 15){
 		    areTherePests(false, false, true, false, 0); //Bring in sunny case for pests
 		 }
-		 if(sunDaysInRow > 13){
+		 if(sunDaysInRow > 5){
 		     if(sunDaysInRow == 14){
 			     isDrought = true; //begin drought
-			     console.log("A drought has occurred");
+                 engine.messages.add('A drought has occurred');
 			 } else {
-			     console.log("The drought continues...");
+			     console.log("");
+                 engine.messages.add('The drought continues...');
 			 }
 		     drought(); //drought function goes here
 			 var sunDays2 = sunDaysInRow - 13;
