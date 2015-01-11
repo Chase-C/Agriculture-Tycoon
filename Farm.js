@@ -107,11 +107,13 @@ Farm.prototype =
             target.tilled = 1;
             target.blank = 0;
             this.tools.shovel.use();
+			advanceTime(8);
         }else if(move == 2 && this.tools.tractor.held && target.blank == 1){
             day = day - 2;
             target.tilled = 1;
             target.blank = 0;
             this.tools.tractor.uses();
+			advanceTime(4);
         }else if(move == 3  && target.tilled == 1 && this.water - 200 > 0){
             //plant seeds
             day = day - 2;
@@ -121,7 +123,7 @@ Farm.prototype =
             this.water -= 200;
             target.pestRepel = .4;
             this.inv[move - 1]--;
-
+			advanceTime(6);
         }else if(move == 4  && target.tilled == 1 && this.water - 200 > 0){
             //plant seeds
             day = day - 2;
@@ -131,6 +133,7 @@ Farm.prototype =
             this.water -= 200;
             target.pestRepel = .5;
             this.inv[move - 1]--;
+			advanceTime(6);
         }else if(move == 5  && target.tilled == 1 && this.water - 100 > 0){
             //plant seeds
             day = day - 2;
@@ -140,6 +143,7 @@ Farm.prototype =
             this.water -= 100;
             target.pestRepel = .3;
             this.inv[move - 1]--;
+			advanceTime(6);
         }else if(move == 6  && target.tilled == 1 && this.water - 100 > 0){
             //plant seeds
             day = day - 2;
@@ -149,6 +153,7 @@ Farm.prototype =
             this.water -= 100;
             target.pestRepel = .4;
             this.inv[move - 1]--;
+			advanceTime(6);
         }else if(move == 7  && target.tilled == 1   && this.water - 100 > 0){
             //plant seeds
             day = day - 2;
@@ -158,24 +163,27 @@ Farm.prototype =
             this.water -= 100;
             target.pestRepel = .5;
             this.inv[move - 1]--;
+			advanceTime(6);
         }else if(move == 8 && target.planted){
             //pesticides
             day = day - 2;
             target.pestRepel = pestRepel + .1;
             this.inv[move - 1]--;
+			advanceTime(4);
         }else if(move == 9 && target.fertile == 0 ){
             //organic
             day = day - 4;
             target.fertile = 1;
             target.growthRate = 1.3;
             this.inv[move - 1]--;
+			advanceTime(2);
         }else if(move == 9 && target.fertile == 0 ){
             //non organic fertilizer
             day = day - 4;
             target.fertile = 1;
             target.GMO = 1;
             target.growthRate = 1.5;
-
+			advanceTime(2);
         }else if(move == 10 && target.ripe == 1){
             //harvest
             day = day - 3;
@@ -188,7 +196,7 @@ Farm.prototype =
                     break;
                 }
             }
-
+			advanceTime(10);
             target.blank=1;
             target.lettuce=0;
             target.apples=0;
