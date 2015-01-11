@@ -80,7 +80,11 @@ var Graphics = {
 		for(var i=0;i<Land.length;i++){
 			for(var j=0;j<Land[i].length;j++){
 				var image = this.acres.empty;
-				if(Land[i][j].ripe && Land[i][j].apples){
+				if(isDrought){
+					image = this.acres.drought;
+                }else if(isFlooded){
+					image = this.acres.flood;
+                }else if(Land[i][j].ripe && Land[i][j].apples){
 					image = this.acres.apple2;
 				}else if(Land[i][j].apples){
 					image = this.acres.apple1;

@@ -24,7 +24,7 @@ Venue.prototype =
 {
     update: function(hours)
     {
-        console.log('Venue Update');
+        //console.log('Venue Update');
         for (var i = 0; i < this.numProduce.length; i++) {
             var offset          = (Math.random() - 0.48) / 10;
             this.cropDemand[i] += offset * Math.pow((Math.random() / 5) + 0.9, Math.log(hours));
@@ -35,7 +35,7 @@ Venue.prototype =
                 this.numProduce[i]  = 0;
                 this.cropDemand[i] += 0.05;
             }
-            console.log(i, Seeds.name[i], this.numProduce[i]);
+            //console.log(i, Seeds.name[i], this.numProduce[i]);
         }
 
         for (var i = 0; i < this.numProduce.length; i++) {
@@ -81,7 +81,7 @@ Venue.prototype =
     willBuy: function(crop, price, num)
     {
         var purchaseReady = Math.min(this.purchaseReady[crop], 2);
-        console.log('p: ' + purchaseReady);
+        //console.log('p: ' + purchaseReady);
         var numUnits      = (this.maxProduce[crop] - this.numProduce[crop]) * this.cropDemand[crop];
         var priceMod      = Math.pow(Seeds.price[crop] / price, 2);
         var salePower     = priceMod * Math.min(num / numUnits, 1);

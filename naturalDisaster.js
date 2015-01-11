@@ -38,7 +38,7 @@ var Sprouts = {
    FireTol:.65
 };
 
-var fruits = [Sprouts, Strawberry, Lettuce, Apples, Artichoke];
+var fruits = [Lettuce, Apples, Strawberry, Sprouts, Artichoke];
 //currentFruit = undefined;
 function getCurrentFruit(position){
 	return fruits[position];
@@ -49,7 +49,7 @@ var rainDaysInRow = 0;
 var isDrought = false;
 var isFlooded = false;
 
-function weather(Sprouts){
+function weather(){
    var todayWeather = Math.floor(Math.random() * 91);
   // for(i = 0; i <= 30; i++){
      if(todayWeather <= 16){ //Based on the average number of rainy days in Salinas

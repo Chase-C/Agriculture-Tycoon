@@ -36,5 +36,7 @@ UI.prototype =
         } else {
             canvas.fillText('No Crops', 240, 4);
         }
+
+        canvas.fillText(this.farm.days + ' days passed.', 380, 4);
     }
 }

@@ -17,7 +17,8 @@ var Slider = function(x, y, w, h, min, max, def, step, cb)
     this.stepW    = (this.w - this.sliderW) / this.numSteps;
     this.sliderX  = this.x + (this.stepNum * this.stepW);
 
-    console.log(this.stepW, this.sliderX);
+    //
+    //console.log(this.stepW, this.sliderX);
 
     this.callback = cb;
     this.clicked  = false;

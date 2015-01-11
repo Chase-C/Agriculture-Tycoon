@@ -4,9 +4,11 @@ function advanceTime(time)
     if (engine.farm.hours >= 24) {
         engine.farm.hours -= 24;
         engine.farm.days  += 1;
-        if (days % 15 === 0) {
-            engine.doTaxes();
+        if (engine.farm.days % 15 === 0) {
+            engine.farm.payTaxes();
         }
+
+        weather();
     }
 
     engine.farm.updateCrops(time);

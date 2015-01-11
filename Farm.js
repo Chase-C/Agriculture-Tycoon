@@ -18,14 +18,16 @@ var Farm = function()
     this.cropAmount = [1000, 1000, 100, 100, 1000];
 
     this.tools = {
-		shovel: new Item(10, 15, true),
+		shovel: new Item(10, 2, true),
 		tractor: new Item(500, 30, true),
 		helpingHand: new Item(100, 1, true),
 		tire: new Item(50, 1, false)
 	};
 
+    this.tools.shovel.obtain();
+
     this.seeds = {
-        lettuce:    10,
+        lettuce:    1,
         apple:      10,
         strawberry: 10,
         brussel:    10,
@@ -37,9 +39,7 @@ var Farm = function()
 
     this.text = ['Shovel', 'Tractor', 'Lettuce Seeds', 'Apple Saplings', 'Strawberry Seeds',
                  'Brussel Sprout Seeds', 'Artichoke Seeds', 'Pesticide', 'Fertilizer', 'Harvest'];
-    this.inv  = [this.tools.shovel.held, this.tools.tractor.held, this.seeds.lettuce, this.seeds.apple,
-                 this.seeds.strawberry, this.seeds.brussel, this.seeds.artichoke, this.pesticide,
-                 this.fertilizer, 1];
+    this.inv = this.setInv();
 
     this.selection = -1;
 
@@ -52,9 +52,18 @@ var Farm = function()
 
 Farm.prototype =
 {
+    setInv: function()
+    {
+        return [this.tools.shovel.held, this.tools.tractor.held, this.seeds.lettuce, this.seeds.apple,
+               this.seeds.strawberry, this.seeds.brussel, this.seeds.artichoke, this.pesticide,
+               this.fertilizer, 1];
+    },
+
 	//potentially redundant
     performAction: function(action)
     {
+        this.inv = this.setInv();
+
         if (action.name === 'Sleep') {
             this.days += 1;
             this.hours = 0;
@@ -116,12 +125,13 @@ Farm.prototype =
             target.pestRepel=1.0;
             target.GMO=0;
             this.tools.shovel.use();
+            advanceTime(24);
         }else if(move == 2 && this.tools.tractor.held && target.blank == 1){
             day = day - 2;
             target.tilled = 1;
             target.blank = 0;
             this.tools.tractor.uses();
-        }else if(move == 3  && target.tilled == 1 && this.water - 200 > 0){
+        }else if(this.seeds.lettuce > 0 && move == 3  && target.tilled == 1 && this.water - 200 > 0){
             //plant seeds
             day = day - 2;
             target.tilled = 0;
@@ -129,9 +139,9 @@ Farm.prototype =
             target.lettuce = 1;
             this.water -= 200;
             target.pestRepel = .4;
-            this.inv[move - 1]--;
+            this.seeds.lettuce -= 1;
 
-        }else if(move == 4  && target.tilled == 1 && this.water - 200 > 0){
+        }else if(this.seeds.apples > 0 && move == 4  && target.tilled == 1 && this.water - 200 > 0){
             //plant seeds
             day = day - 2;
             target.tilled = 0;
@@ -139,8 +149,8 @@ Farm.prototype =
             target.apples = 1;
             this.water -= 200;
             target.pestRepel = .5;
-            this.inv[move - 1]--;
-        }else if(move == 5  && target.tilled == 1 && this.water - 100 > 0){
+            this.seeds.apples -= 1;
+        }else if(this.seeds.strawberries > 0 && move == 5  && target.tilled == 1 && this.water - 100 > 0){
             //plant seeds
             day = day - 2;
             target.tilled = 0;
@@ -148,8 +158,8 @@ Farm.prototype =
             target.strawberries = 1;
             this.water -= 100;
             target.pestRepel = .3;
-            this.inv[move - 1]--;
-        }else if(move == 6  && target.tilled == 1 && this.water - 100 > 0){
+            this.seeds.strawberries -= 1;
+        }else if(this.seeds.brussel > 0 && move == 6  && target.tilled == 1 && this.water - 100 > 0){
             //plant seeds
             day = day - 2;
             target.tilled = 0;
@@ -157,8 +167,8 @@ Farm.prototype =
             target.brussel = 1;
             this.water -= 100;
             target.pestRepel = .4;
-            this.inv[move - 1]--;
-        }else if(move == 7  && target.tilled == 1   && this.water - 100 > 0){
+            this.seeds.brussel -= 1;
+        }else if(this.seeds.artichokes > 0 && move == 7  && target.tilled == 1   && this.water - 100 > 0){
             //plant seeds
             day = day - 2;
             target.tilled = 0;
@@ -166,25 +176,26 @@ Farm.prototype =
             target.artichokes = 1;
             this.water -= 100;
             target.pestRepel = .5;
-            this.inv[move - 1]--;
-        }else if(move == 8 && target.planted){
+            this.seeds.artichokes -= 1;
+        }else if(this.pesticide > 0 && move == 8 && target.planted){
             //pesticides
             day = day - 2;
             target.pestRepel = pestRepel + .1;
-            this.inv[move - 1]--;
-        }else if(move == 9 && target.fertile == 0 ){
+            this.pesticide -= 1;
+        }else if(this.fertilizer > 0 && move == 9 && target.fertile == 0 ){
             //organic
             day = day - 4;
             target.fertile = 1;
             target.growthRate = 1.3;
-            this.inv[move - 1]--;
-        }else if(move == 9 && target.fertile == 0 ){
+            this.fertilizer -= 1;
+        }else if(this.fertilizer > 0 && move == 9 && target.fertile == 0 ){
             //non organic fertilizer
             day = day - 4;
             target.fertile = 1;
             target.GMO = 1;
             target.growthRate = 1.5;
 
+            this.fertilizer -= 1;
         }else if(move == 10 && target.ripe == 1){
             //harvest
             day = day - 3;
