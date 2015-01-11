@@ -7,12 +7,12 @@ var createBuyMenu = function(menus, farm){
 		switch(i){
 			case 0:
 				price = farm.tools.shovel.price;
-				buyF = farm.addTool;
+				buyF = 0;
 				name = 'shovel';
 				break;
 			case 1:
 				price = farm.tools.tractor.price;
-				buyF = farm.addTool;
+				buyF = 0;
 				name = 'tractor';
 				break;
 			case 2:
@@ -21,24 +21,38 @@ var createBuyMenu = function(menus, farm){
 			case 5:
 			case 6:
 				price = Seeds.price[i-2];
-				buyF = farm.addSeeds;
-				name = Seeds.name[i];
+				buyF = 1;
+				name = Seeds.name[i-2];
 				break;
 			case 7:
 				price = pesticidePrice;
-				buyF = farm.addBonus;
+				buyF = 2;
 				name = 'pesticide';
 				break;
 			case 8:
 				price = OFPrice;
-				buyF = farm.addBonus;
-				name = 'pesticide';
+				buyF = 2;
+				name = 'fertilizer';
 				break;
 		}
 		elements.push(new Text(farm.text[i]+": $"+price, 16+250*(i%2), 68+80*Math.floor(i/2), 14));
 		var buyButton = new Button(16+250*(i%2), 90+80*Math.floor(i/2), 96,  32, 'Buy', null);
-		buyButton.setCallback(buyF.bind(this, name));
-		if(farm.money < price) buyButton.active = false;
+		var buyFunc = (function(f, n, bf) {
+			switch(bf){
+				case 0:
+					f.addTool(n);
+					
+					break;
+				case 1:
+					f.addSeeds(n);
+					break;
+				case 2:
+					f.addBonus(n);
+					break
+			}
+        }).bind(this, farm, name, buyF);
+		buyButton.setCallback(buyFunc);
+		if(farm.money < price || (buyF===0 && farm.tools[name].held)) buyButton.active = false;
 		elements.push(buyButton);
 	}
 	

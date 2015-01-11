@@ -249,6 +249,7 @@ Farm.prototype =
         }
         item.obtain();
         this.money -= item.price;
+		console.log(item.price);
         this.expenditures.push(item.price);
     },
 	
@@ -275,8 +276,8 @@ Farm.prototype =
 		    return; //not enough funds
         }
         this.seeds[seedName]++;
-        this.money -= item.price;
-        this.expenditures.push(item.price);
+        this.money -= price;
+        this.expenditures.push(price);
 	},
 	
 	addBonus: function(name){
@@ -293,8 +294,8 @@ Farm.prototype =
 		    return; //not enough funds
         }
         this[name]++;
-        this.money -= item.price;
-        this.expenditures.push(item.price);
+        this.money -= price;
+        this.expenditures.push(price);
 	},
 
     updateCrops: function(time)
