@@ -10,12 +10,21 @@ var Engine = function(w, h)
     this.ui   = new UI(this.farm);
 
     this.testCropSupply = new CropSupply(10);
-    this.testVenue      = new Venue('test', this.testCropSupply);
+    console.log(this.testCropSupply);
+    this.venues = ['Salad Palace',
+                   'Health Nut',
+                   'Swav Mart',
+                   'Farmer\'s Market'].map((function(name) {
+                       console.log(this.testCropSupply);
+                       return new Venue(name, this.testCropSupply);
+                   }).bind(this));
 
-    var menuFunc = function() {
-        this.menus.push(createSellMenu(this.farm, this.testVenue));
-    }
-    this.testButton = new Button(32, 100, 128, 32, "Test", menuFunc.bind(this));
+    //this.testVenue      = new Venue('test', this.testCropSupply);
+
+    //var menuFunc = function() {
+    //    this.menus.push(createSellMenu(this.farm, this.testVenue));
+    //}
+    //this.testButton = new Button(32, 100, 128, 32, "Test", menuFunc.bind(this));
 
     this.menus = [];
 
@@ -49,28 +58,33 @@ Engine.prototype =
 
     mouseDown: function(x, y)
     {
-        if (this.menus.length == 0) {
-            this.testButton.mouseDown(x, y);
-        } else {
+        if (this.menus.length > 0) {
             this.menus[0].mouseDown(x, y);
+        } else {
+            //this.testButton.mouseDown(x, y);
         }
     },
 
     mouseUp: function(x, y)
     {
-        if (this.menus.length == 0) {
-            this.testButton.mouseUp(x, y);
+        if (this.menus.length > 0) {
+            this.menus[this.menus.length - 1].mouseUp(x, y);
         } else {
-            this.menus[0].mouseUp(x, y);
+            //this.testButton.mouseUp(x, y);
+            var building = Graphics.checkBuildings(x, y);
+            if (building >= 0) {
+                this.menus.push(createSellMenu(this.farm, this.venues[building]));
+            }
         }
     },
 	
 	mouseMove: function(x, y)
 	{
-        if (this.menus.length != 0) {
+        if (this.menus.length > 0) {
             this.menus[0].mouseMove(x, y);
+        } else {
+            Graphics.updatePos(x, y);
         }
-		Graphics.updatePos(x, y);
 	},
 
     // Functions for starting and stopping the simulation
@@ -86,7 +100,7 @@ Engine.prototype =
 
         this.ui.draw(canvas);
 
-        this.testButton.draw(canvas);
+        //this.testButton.draw(canvas);
 
         for (var i = 0; i < this.menus.length; i++) {
             this.menus[i].draw(canvas);

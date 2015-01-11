@@ -112,6 +112,19 @@ var Graphics = {
 			this.outlines.swav.draw();
 		}
 	},
+
+	checkBuildings: function(){
+		if(this.checkInQuad([[1482,1040],[1620,1122],[1385,1221],[1260,1132]])){
+            return 3; // Farmer's Market
+		}else if(this.checkInQuad([[1104,1401],[1352,1612],[1200,1698],[920,1474]])){
+            return 1; // Health Nut
+		}else if(this.checkInQuad([[2091,1413],[2276,1613],[2124,1728],[1867,1563]])){
+            return 0; // Salad Palace
+		}else if(this.checkInQuad([[854,887],[998,997],[817,1085],[651,958]])){
+            return 3; // Swav Mart
+		}
+        return -1;
+	},
 	
 	outlineAcre: function(i, j){
 		this.outlines.acre.draw(this.acresOriginX+70*j+105*i, this.acresOriginY+57*(j-i));
