@@ -6,8 +6,8 @@ var Orders = {
 		this.venues = new Array("The Salad Palace", "Swav Mart", "The Health Nut", "Farmer's Market");
 		this.produce = new Array("Lettuce", "Apples", "Strawberries", "Brussel Sprouts", "Artichokes");
 		
-		for(int v=0;v<this.venues.length;v++){
-			for(int p=0;p<this.produce.length;p++){
+		for(var v=0;v<this.venues.length;v++){
+			for(var p=0;p<this.produce.length;p++){
 				this.stack.push([this.venues[v], this.produce[p], Math.floor(100*Math.random())]);
 			}
 		}
