@@ -29,6 +29,8 @@ var Engine = function(w, h)
     //this.messages = new Messages(256, 16, 280, 480);
     //this.messages.add('test');
     //this.messages.add('some more tests\nnow with newlines');
+	
+	soundtrack.play();
 }
 
 Engine.prototype =
