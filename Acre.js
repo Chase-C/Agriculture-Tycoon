@@ -11,8 +11,13 @@ function Acre(){
 	this.ruined=0;
 	this.fertile=0;
 	this.GMO=0;
-
+  
 	this.state= Array(this.tilled,this.planted , this.ripe, this.ruined, this.fertile );
+
+	//growth timer
+	this.countdown = 0;
+
+	
 	this.growthRate=1.0;
 	//protection percent
 	this.pestRepel=1.0;

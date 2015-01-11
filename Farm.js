@@ -58,100 +58,163 @@ Farm.prototype =
 
         return true;
     },
+
+    updateCrops: function(time)
+    {
+        for (var i = 0; i < Land.length; i++) {
+            for (var j = 0; j < Land[i].length; j++) {
+
+                      //growth algorithm
+            	if(Land[i][j].planted == 1){
+            	Land[i][j].coutdown -= Land[i][j].growthRate;
+            	if(Land[i][j].coutdown <= 0){
+                    Land[i][j].planted = 0;
+                     Land[i][j].ripe = 1;
+
+            	}
+
+                }
+            }
+        }
+    },
+
+    UpdateT: function(cost){
+           this.hours += cost;
+           if(this.hours >= 24){
+           	this.hours = 0;
+           	updateCrops();
+             day++;
+             if(day > 90){
+               //engine.gameOver()
+
+           }
+           return 1;
+           }
+       return 0;
+           
+
+    },
 	
 	farmMove: function(move, target){
 		//till by shov
 		if(move == 1 && this.tools.shovel.held && target.blank){
-			day = day - 6;
+			var pass = UpdateT(6);
+			if(pass == 0){
 			target.tilled = 1;
 			target.blank = 0;
 			this.tools.shovel.use();
+
+		}
 		}else
 		
 		if(move == 2 && this.tools.tractor.held && target.blank == 1){
-		  day = day - 2;
+		  var pass = UpdateT(2);
+		  if(pass == 0){
 		  target.tilled = 1;
 		  target.blank = 0;
 		  this.tools.tractor.uses();
+		}
 		 }else
 
 		//plant seeds
 		if(move == 3  && target.tilled == 1 && this.water - 200 > 0){
-			day = day - 2;
+			var pass = UpdateT(2);
+			if(pass == 0){
 			target.tilled = 0;
 			target.planted = 1;
 			target.lettuce = 1;
 			this.water -= 200;
 			target.pestRepel = .4;
-
+			target.countdown = 2;
+                }
 
 		}else
 
 		//plant seeds
 		if(move == 4  && target.tilled == 1 && this.water - 200 > 0){
-			day = day - 2;
+			var pass = UpdateT(2);
+			if(pass == 0){
 			target.tilled = 0;
 			target.planted = 1;
 			target.apples = 1;
 			this.water -= 200;
 			target.pestRepel = .5;
+			target.countdown = 12;
+		}
+
 		}else
 
 		//plant seeds
 		if(move == 5  && target.tilled == 1 && this.water - 100 > 0){
-			day = day - 2;
+			var pass = UpdateT(2);
+			if(pass == 0){
 			target.tilled = 0;
 			target.planted = 1;
 			target.strawberries = 1;
 			this.water -= 100;
 			target.pestRepel = .3;
+			target.countdown = 4;
+              }
 		}else
 
 		//plant seeds
 		if(move == 6  && target.tilled == 1 && this.water - 100 > 0){
-			day = day - 2;
+			var pass = UpdateT(2);
+			if(pass == 0){
 			target.tilled = 0;
 			target.planted = 1;
 			target.brussel = 1;
+			target.countdown = 8;
 			this.water -= 100;
 			target.pestRepel = .4;
+		}
 		}else
 
 		//plant seeds
 		if(move == 7  && target.tilled == 1   && this.water - 100 > 0){
-			day = day - 2;
+			var pass = UpdateT(2);
+			if(pass == 0){
 			target.tilled = 0;
 			target.planted = 1;
 			target.artichokes = 1;
+			target.countdown = 10;
 			this.water -= 100;
 			target.pestRepel = .5;
+		}
 		}else
 
 
 		//pesticides
 		if(move == 8 && target.planted){
-			day = day - 2;
+			var pass = UpdateT(2);
+			if(pass > 0){
 		   target.pestRepel = pestRepel + .1;
+		}
 		}else
 
 		//organic
 		if(move == 9 && target.fertile == 0 ){
-			day = day - 4;
+			var pass = UpdateT(4);
+			if(pass > 0){
 			target.fertile = 1;
 			target.growthRate = 1.3;
+		}
 		}else
 		
 		//non organic fertilizer
 		if(move == 9 && target.fertile == 0 ){
-			day = day - 4;
+			var pass = UpdateT(4);
+			if(pass > 0){
 			target.fertile = 1;
 			target.GMO = 1;
 			target.growthRate = 1.5;
+		}
 
 		}else
 		//harvest
 		if(move == 10 && target.ripe == 1){
-			day = day - 3;
+			var pass = UpdateT(3);
+			if(pass > 0){
 			target.ripe = 0;
 			var harvest = 0;
 			var crop = Array( target.lettuce, target.apples, target.strawberries, target.brussel, target.artichokes);
@@ -178,6 +241,7 @@ Farm.prototype =
 			target.pestRepel=1.0;
 			target.GMO=0;
 		}
+		}
 	},
 
     addTool: function(itemName)
@@ -194,13 +258,7 @@ Farm.prototype =
         this.expenditures.push(item.price);
     },
 
-    updateCrops: function(time)
-    {
-        for (var i = 0; i < Land.length; i++) {
-            for (var j = 0; j < Land[i].length; j++) {
-            }
-        }
-    },
+    
 
     payTaxes: function()
     {
