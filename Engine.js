@@ -9,8 +9,11 @@ var Engine = function(w, h)
     this.farm = new Farm();
     this.ui   = new UI(this.farm);
 
+    this.testCropSupply = new CropSupply(10);
+    this.testVenue      = new Venue('test', this.testCropSupply);
+
     var menuFunc = function() {
-        this.menus.push(createActionMenu(this.farm));
+        this.menus.push(createSellMenu(this.farm, this.testVenue));
     }
     this.testButton = new Button(32, 100, 128, 32, "Test", menuFunc.bind(this));
 
@@ -19,9 +22,6 @@ var Engine = function(w, h)
     //this.messages = new Messages(256, 16, 280, 480);
     //this.messages.add('test');
     //this.messages.add('some more tests\nnow with newlines');
-
-    this.testCropSupply = new CropSupply(10);
-    this.testVenue      = new Venue('test', this.testCropSupply);
 }
 
 Engine.prototype =

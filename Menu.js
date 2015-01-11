@@ -31,7 +31,9 @@ Menu.prototype =
         var my = y - this.y;
 
         for (var i = 0; i < this.elements.length; i++) {
-            this.elements[i].mouseDown(mx, my);
+            if (this.elements[i].mouseDown) {
+                this.elements[i].mouseDown(mx, my);
+            }
         }
     },
 
@@ -41,7 +43,9 @@ Menu.prototype =
         var my = y - this.y;
 
         for (var i = 0; i < this.elements.length; i++) {
-            this.elements[i].mouseUp(mx, my);
+            if (this.elements[i].mouseUp) {
+                this.elements[i].mouseUp(mx, my);
+            }
         }
     },
 
@@ -51,7 +55,9 @@ Menu.prototype =
         var my = y - this.y;
 
         for (var i = 0; i < this.elements.length; i++) {
-            this.elements[i].mouseMove(mx, my);
+            if (this.elements[i].mouseMove) {
+                this.elements[i].mouseMove(mx, my);
+            }
         }
     },
 

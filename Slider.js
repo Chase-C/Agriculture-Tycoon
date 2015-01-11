@@ -1,4 +1,4 @@
-var Slider = function(x, y, w, h, min, max, def, step)
+var Slider = function(x, y, w, h, min, max, def, step, cb)
 {
     this.x = x;
     this.y = y;
@@ -8,6 +8,7 @@ var Slider = function(x, y, w, h, min, max, def, step)
     this.min  = min;
     this.max  = max;
     this.def  = def;
+    this.val  = def;
     this.step = step;
 
     this.numSteps = (max - min) / step;
@@ -16,8 +17,9 @@ var Slider = function(x, y, w, h, min, max, def, step)
     this.stepW    = (this.w - this.sliderW) / this.numSteps;
     this.sliderX  = this.x + (this.stepNum * this.stepW);
 
-    this.clicked = false;
-    this.mouseX  = 0;
+    this.callback = cb;
+    this.clicked  = false;
+    this.mouseX   = 0;
 }
 
 Slider.prototype =
@@ -33,12 +35,15 @@ Slider.prototype =
 
     mouseUp: function(mx, my)
     {
-        var step     = this.nearestStep(this.sliderX);
-        this.sliderX = this.xFromStep(step);
-        this.clicked = false;
-        
-        if (this.callback) {
-            this.callback();
+        if (this.clicked) {
+            var step     = this.nearestStep(this.sliderX);
+            this.stepNum = (step - this.min) / this.step;
+            this.sliderX = this.xFromStep(step);
+            this.clicked = false;
+
+            if (this.callback) {
+                this.callback(this.val);
+            }
         }
     },
 
@@ -55,8 +60,11 @@ Slider.prototype =
                 this.mouseX   = mx;
             }
 
+            var step     = this.nearestStep(this.sliderX);
+            this.stepNum = (step - this.min) / this.step;
+
             if (this.callback) {
-                this.callback();
+                this.callback(this.val);
             }
         }
     },
