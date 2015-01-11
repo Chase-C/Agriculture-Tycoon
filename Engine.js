@@ -73,10 +73,13 @@ Engine.prototype =
             //this.testButton.mouseUp(x, y);
             var building = Graphics.checkBuildings();
             var acreCoords = Graphics.getSelectedAcre();
-            if (building >= 0) {
+            if (building > 0) {
                 this.menus.push(createSellMenu(this.menus, this.farm, this.venues[building]));
 				selectSound.play();
-            } else if (acreCoords) {
+            } else if (building == 0) {
+				this.menus.push(createBuyMenu(this.menus, this.farm));
+				selectSound.play();
+			} else if (acreCoords) {
 				var acre = Land[acreCoords[0]][acreCoords[1]];
                 this.farm.useTool(acre);
 				selectSound.play();
