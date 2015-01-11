@@ -111,14 +111,17 @@ var Graphics = {
 	outlineBuildings: function(){
 		if(this.checkInQuad([[595,318],[883,511],[466,696],[125,474]])){
 			this.outlines.emporium.draw();
-		}else if(this.checkInQuad([[1482,1040],[1620,1122],[1385,1221],[1260,1132]])){
-			this.outlines.farmer.draw();
-		}else if(this.checkInQuad([[1104,1401],[1352,1612],[1200,1698],[920,1474]])){
-			this.outlines.nut.draw();
-		}else if(this.checkInQuad([[2091,1413],[2276,1613],[2124,1728],[1867,1563]])){
-			this.outlines.salad.draw();
-		}else if(this.checkInQuad([[854,887],[998,997],[817,1085],[651,958]])){
-			this.outlines.swav.draw();
+		}else{
+			var check = this.checkBuildings();
+			if(check==3){
+				this.outlines.farmer.draw();
+			}else if(check==1){
+				this.outlines.nut.draw();
+			}else if(check==0){
+				this.outlines.salad.draw();
+			}else if(check==2){
+				this.outlines.swav.draw();
+			}
 		}
 	},
 
@@ -130,7 +133,7 @@ var Graphics = {
 		}else if(this.checkInQuad([[2091,1413],[2276,1613],[2124,1728],[1867,1563]])){
             return 0; // Salad Palace
 		}else if(this.checkInQuad([[854,887],[998,997],[817,1085],[651,958]])){
-            return 3; // Swav Mart
+            return 2; // Swav Mart
 		}
         return -1;
 	},
