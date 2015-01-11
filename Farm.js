@@ -218,6 +218,7 @@ Farm.prototype =
         }
         item.obtain();
         this.money -= item.price;
+		console.log(item.price);
         this.expenditures.push(item.price);
     },
 	

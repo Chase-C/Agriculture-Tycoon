@@ -22,7 +22,7 @@ var createBuyMenu = function(menus, farm){
 			case 6:
 				price = Seeds.price[i-2];
 				buyF = 1;
-				name = Seeds.name[i];
+				name = Seeds.name[i-2];
 				break;
 			case 7:
 				price = pesticidePrice;
@@ -37,19 +37,21 @@ var createBuyMenu = function(menus, farm){
 		}
 		elements.push(new Text(farm.text[i]+": $"+price, 16+250*(i%2), 68+80*Math.floor(i/2), 14));
 		var buyButton = new Button(16+250*(i%2), 90+80*Math.floor(i/2), 96,  32, 'Buy', null);
-		var buyFunc = (function(f, n) {
-			switch(buyF){
+		var buyFunc = (function(f, n, bf) {
+			switch(bf){
 				case 0:
+					console.log("hi");
 					f.addTool(n);
+					
 					break;
-				case 2:
+				case 1:
 					f.addSeeds(n);
 					break;
-				case 3:
+				case 2:
 					f.addBonus(n);
 					break
 			}
-        }).bind(this, farm, name);
+        }).bind(this, farm, name, buyF);
 		buyButton.setCallback(buyFunc);
 		if(farm.money < price) buyButton.active = false;
 		elements.push(buyButton);
