@@ -9,7 +9,8 @@ var Graphics = {
 	toolbarMargin: 48,
 	acresOriginX: 1260,
 	acresOriginY: 320,
-	
+	danimate:0,
+     danframN:0,
 	//local image class
 	//each image can have a static position, defined in construction
 	//or position can be specified upon drawing. latter overrides former.
@@ -40,7 +41,10 @@ var Graphics = {
 		this.canvas = canvas;
 		this.portWidth = width;
 		this.portHeight = height;
-		
+		//added
+		 this.DFrames = [new this.image("gur1", 40, 500), new this.image("gur2", 40, 500), new this.image("gur3", 40, 500), new this.image("gur4", 40, 500)];
+          this.talk = new this.image("gurT", 100, 420);
+
 		//acres initialization
 		this.acres = {
 			drought: new this.image("drought"),
@@ -155,6 +159,23 @@ var Graphics = {
 		}
 	},
 	
+
+	drawDan: function(){
+    Graphics.danimate++;
+        if (Graphics.danimate % 20 == 0){
+            Graphics.danframN++;
+        }
+            if(Graphics.danframN >= 4){
+                Graphics.danframN = 0;
+            }
+          
+         Graphics.canvas.drawImage(this.DFrames[Graphics.danframN].elem, this.DFrames[Graphics.danframN].x, this.DFrames[Graphics.danframN].y);
+          if(this.mouseX < 300 && this.mouseX > 20 && this.mouseY > 500){
+         Graphics.canvas.drawImage(this.talk.elem, this.talk.x, this.talk.y);
+     }
+         
+    },
+
 	drawWorld: function(){
 		for(var i=0;i<this.map.length;i++){
 			this.map[i].draw();
@@ -165,6 +186,8 @@ var Graphics = {
 		if(selectedAcre){
 			this.outlineAcre(selectedAcre[0], selectedAcre[1]);
 		}
+
+		this.drawDan();
 	},
 	
 	updatePos: function(x, y){
