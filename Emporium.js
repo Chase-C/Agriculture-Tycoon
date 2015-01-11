@@ -4,7 +4,7 @@
 var Seeds = {
     name:             ['lettuce', 'apple', 'strawberry', 'brussel', 'artichoke'],
     price:            [50,        90,       100,            70,                150], 
-    seedMakes:        [50,        70,       30,             60,                40], //x's
+    seedMakes:        [20,        30,       12,             25,                15], //x's
     growTime:         [2,         2,        4,              7,                 10],
     timeCost:         [2,         3,        4,              5,                 6], //hours
     timeCostOF:       [3,         4,        5,              6,                 7], //hours

@@ -125,7 +125,7 @@ Farm.prototype =
             target.pestRepel=1.0;
             target.GMO=0;
             this.tools.shovel.use();
-            advanceTime(24);
+            advanceTime(4);
         }else if(move == 2 && this.tools.tractor.held && target.blank == 1){
             day = day - 2;
             target.tilled = 1;
@@ -224,7 +224,35 @@ Farm.prototype =
             target.growthRate=1.0;
             target.pestRepel=1.0;
             target.GMO=0;
-        }
+        } else if(move == 11 && target.ripe == 1){
+             //helping hand
+		
+			target.ripe = 0;
+			var harvest = 0;
+			var crop = Array( target.lettuce, target.apples, target.strawberries, target.brussel, target.artichokes);
+			for(var i = 0; i < crop.length; i++){
+				if(target.crop[i] == 1){
+					harvest = i;
+					break;
+				}
+			}
+
+			target.blank=1;
+			target.lettuce=0;
+			target.apples=0;
+			target.strawberries=0;
+			target.brussel=0;
+			target.artichokes=0;
+			target.tilled=0;
+			target.planted=0;
+			target.ripe=0;
+			target.ruined=0;
+			target.fertile=0;
+			target.GMO=0;
+			target.growthRate=1.0;
+			target.pestRepel=1.0;
+			target.GMO=0;
+		}
 
         this.cropType = -1;
         for (var i = 0; i < Land.length; i++) {
@@ -251,6 +279,22 @@ Farm.prototype =
         this.money -= item.price;
 		console.log(item.price);
         this.expenditures.push(item.price);
+    },
+
+    UpdateT: function(cost){
+           this.hours += cost;
+           if(this.hours >= 24){
+           	this.hours = 0;
+           	updateCrops();
+             day++;
+
+             if(day > 90){
+               //engine.gameOver()
+
+           }
+           return 1;
+           }
+       return 0;
     },
 	
 	addSeeds: function(seedName){
