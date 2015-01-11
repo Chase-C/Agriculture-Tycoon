@@ -1,12 +1,19 @@
+//just temporary until we figure out time
+var day = 0;
+
 var Farm = function()
 {
     this.money = 1000;
     this.water = 1000;
 
     this.cropType = 0;
-    this.crops    = [];
 
-    this.items = [];
+    this.tools = {
+		shovel: new Item(10, 15, true),
+		tractor: new Item(500, 30, true),
+		helpingHand: new Item(100, 1, true),
+		tire: new Item(50, 1, false)
+	};
 
     this.income       = 0;
     this.expenditures = [];
@@ -17,6 +24,7 @@ var Farm = function()
 
 Farm.prototype =
 {
+	//potentially redundant
     performAction: function(action)
     {
         if (action.name === 'Sleep') {
@@ -49,10 +57,139 @@ Farm.prototype =
 
         return true;
     },
+	
+	farmMove: function(move, target){
+		//till by shov
+		if(move == 1 && this.tools.shovel.held && target.blank){
+			day = day - 6;
+			target.tilled = 1;
+			target.blank = 0;
+			this.tools.shovel.use();
+		}else
+		
+		if(move == 2 && this.tools.tractor.held && target.blank == 1){
+		  day = day - 2;
+		  target.tilled = 1;
+		  target.blank = 0;
+		  this.tools.tractor.uses();
+		 }else
 
-    addItem: function(item)
+		//plant seeds
+		if(move == 3  && target.tilled == 1 && this.ater - 200 > 0){
+			day = day - 2;
+			target.tilled = 0;
+			target.planted = 1;
+			target.lettuce = 1;
+			this.water -= 200;
+			target.pestRepel = .4;
+
+
+		}else
+
+		//plant seeds
+		if(move == 4  && target.tilled == 1 && this.water - 200 > 0){
+			day = day - 2;
+			target.tilled = 0;
+			target.planted = 1;
+			target.apples = 1;
+			this.water -= 200;
+			target.pestRepel = .5;
+		}else
+
+		//plant seeds
+		if(move == 5  && target.tilled == 1 && this.water - 100 > 0){
+			day = day - 2;
+			target.tilled = 0;
+			target.planted = 1;
+			target.strawberries = 1;
+			this.water -= 100;
+			target.pestRepel = .3;
+		}else
+
+		//plant seeds
+		if(move == 6  && target.tilled == 1 && this.water - 100 > 0){
+			day = day - 2;
+			target.tilled = 0;
+			target.planted = 1;
+			target.brussel = 1;
+			this.water -= 100;
+			target.pestRepel = .4;
+		}else
+
+		//plant seeds
+		if(move == 7  && target.tilled == 1   && this.water - 100 > 0){
+			day = day - 2;
+			target.tilled = 0;
+			target.planted = 1;
+			target.artichokes = 1;
+			this.water -= 100;
+			target.pestRepel = .5;
+		}else
+
+
+		//pesticides
+		if(move == 8 && target.planted){
+			day = day - 2;
+		   target.pestRepel = pestRepel + .1;
+		}else
+
+		//organic
+		if(move == 9 && target.fertile == 0 ){
+			day = day - 4;
+			target.fertile = 1;
+			target.growthRate = 1.3;
+		}else
+		
+		//non organic fertilizer
+		if(move == 9 && target.fertile == 0 ){
+			day = day - 4;
+			target.fertile = 1;
+			target.GMO = 1;
+			target.growthRate = 1.5;
+
+		}else
+		//harvest
+		if(move == 10 && target.ripe == 1){
+			day = day - 3;
+			target.ripe = 0;
+			var harvest = 0;
+			var crop = Array( target.lettuce, target.apples, target.strawberries, target.brussel, target.artichokes);
+			for(var i = 0; i < crop.length; i++){
+				if(target.crop[i] == 1){
+					harvest = i;
+					break;
+				}
+			}
+
+			target.blank=1;
+			target.lettuce=0;
+			target.apples=0;
+			target.strawberries=0;
+			target.brussel=0;
+			target.artichokes=0;
+			target.tilled=0;
+			target.planted=0;
+			target.ripe=0;
+			target.ruined=0;
+			target.fertile=0;
+			target.GMO=0;
+			target.growthRate=1.0;
+			target.pestRepel=1.0;
+			target.GMO=0;
+		}
+	},
+
+    addTool: function(itemName)
     {
-        this.items.push(item);
+		var item = this.tools[itemName];
+		if(this.money<item.price){
+			return; //not enough funds
+		}
+		if(item.held){
+			return; //already have one
+		}
+        item.obtain();
+		this.money -= item.price;
         this.expenditures.push(item.price);
     },
 

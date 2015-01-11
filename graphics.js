@@ -1,11 +1,3 @@
-//temporary! for testing
-var plots = [[],[],[]];
-for(var i=0;i<3;i++){
-	for(var j=0;j<8;j++){
-		plots[i].push('empty');
-	}
-}
-
 var Graphics = {
 	worldWidth: 2600,
 	worldHeight: 2400,
@@ -48,20 +40,20 @@ var Graphics = {
 		this.portWidth = width;
 		this.portHeight = height;
 		
-		//image initialization
+		//acres initialization
 		this.acres = {
-			apple1: new this.image("apple1"),
-			apple2: new this.image("apple2"),
-			arti: new this.image("arti"),
-			brussel: new this.image("brussel"),
 			drought: new this.image("drought"),
 			empty: new this.image("empty"),
 			flood: new this.image("flood"),
 			irrigated: new this.image("irrigated"),
-			lettuce: new this.image("lettuce"),
-			strawberry: new this.image("strawberry"),
 			tilled: new this.image("tilled")
 		};
+		var crops = ["apple", "artichoke", "brussel", "lettuce", "strawberry"];
+		for(var i=1;i<=2;i++){
+			for(var j=0;j<crops.length;j++){
+				this.acres[crops[j]+i] = new this.image(crops[j]+i);
+			}
+		}
 		
 		//initialize map
 		this.map = [];
@@ -74,9 +66,25 @@ var Graphics = {
 	},
 	
 	drawAcres: function(){
-		for(var i=0;i<plots.length;i++){
-			for(var j=0;j<plots[i].length;j++){
-				this.acres[plots[i][j]].draw(this.acresOriginX+70*j+105*i, this.acresOriginY+57*(j-i));
+		for(var i=0;i<Land.length;i++){
+			for(var j=0;j<Land[i].length;j++){
+				var image = this.acres.empty;
+				if(Land[i][j].ripe && Land[i][j].apples){
+					image = this.acres.apple2;
+				}else if(Land[i][j].apples){
+					image = this.acres.apple1;
+				}else if(Land[i][j].brussel){
+					image = this.acres.brussel2;
+				}else if(Land[i][j].strawberries){
+					image = this.acres.strawberry2;
+				}else if(Land[i][j].artichokes){
+					image = this.acres.lettuce2;
+				}else if(Land[i][j].lettuce){
+					image = this.acres.artichoke2;
+				}else if(Land[i][j].tilled){
+					image = this.acres.tilled;
+				}
+				image.draw(this.acresOriginX+70*j+105*i, this.acresOriginY+57*(j-i));
 			}
 		}
 	},
