@@ -15,23 +15,23 @@ var createSellMenu = function(menus, farm, venue)
         var priceSlider = new Slider(190, 93 + (i * 64), 256, 22, priceMin, priceMax, priceMid, 5, null);
         var offerButton = new Button(476, 74 + (i * 64), 96,  32, 'Offer', null);
 
-        var numFunc = (function(t, name, f, button, num) {
+        var numFunc = (function(t, name, a, button, num) {
             t.text = num + ' ' + name;
-            if (num > f.cropAmount) {
+            if (num > a) {
                 button.active = false;
             } else {
                 button.active = true;
             }
-        }).bind(this, numText, produce[i].name, farm, offerButton);
+        }).bind(this, numText, produce[i].name, farm.cropAmount[i], offerButton);
 
 
         var priceFunc = (function(t, price) {
             t.text = 'Price: $' + price;
         }).bind(this, priceText);
 
-        var offerFunc = (function(m, f, v, p, n) {
-            m.push(createOfferMenu(f, v, p.val, n.val));
-        }).bind(this, menus, farm, venue, priceSlider, numSlider);
+        var offerFunc = (function(m, f, v, c, p, n) {
+            m.push(createOfferMenu(m, f, v, c, p.val, n.val));
+        }).bind(this, menus, farm, venue, i, priceSlider, numSlider);
 
         numSlider.setCallback(numFunc);
         priceSlider.setCallback(priceFunc);
@@ -42,7 +42,7 @@ var createSellMenu = function(menus, farm, venue)
         elements.push(priceText);
         elements.push(priceSlider);
 
-        if (farm.cropType != i || farm.cropAmount < numSlider.val) {
+        if (farm.cropAmount[i] < numSlider.val) {
             offerButton.active = false;
         }
         elements.push(offerButton);

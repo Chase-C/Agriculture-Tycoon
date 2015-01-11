@@ -30,6 +30,12 @@ var Engine = function(w, h)
         this.menus.push(createInventoryMenu(this.farm));
     }).bind(this));
 
+    this.cropButton = new Button(740, 8, 112, 32, 'Crops', (function() {
+        this.menus.push(createCropsMenu(this.farm));
+    }).bind(this));
+
+    this.buttons = [this.invButton, this.cropButton];
+
     //this.messages = new Messages(256, 16, 280, 480);
     //this.messages.add('test');
     //this.messages.add('some more tests\nnow with newlines');
@@ -66,7 +72,9 @@ Engine.prototype =
             this.menus[this.menus.length - 1].mouseDown(x, y);
         } else {
             //this.testButton.mouseDown(x, y);
-            this.invButton.mouseDown(x, y);
+            for (var i = 0; i < this.buttons.length; i++) {
+                this.buttons[i].mouseDown(x, y);
+            }
         }
     },
 
@@ -75,7 +83,9 @@ Engine.prototype =
         if (this.menus.length > 0) {
             this.menus[this.menus.length - 1].mouseUp(x, y);
         } else {
-            this.invButton.mouseUp(x, y);
+            for (var i = 0; i < this.buttons.length; i++) {
+                this.buttons[i].mouseUp(x, y);
+            }
 
             var building = Graphics.checkBuildings();
             var acreCoords = Graphics.getSelectedAcre();
@@ -115,7 +125,9 @@ Engine.prototype =
 
         this.ui.draw(canvas);
 
-        this.invButton.draw(canvas);
+        for (var i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].draw(canvas);
+        }
 
         for (var i = 0; i < this.menus.length; i++) {
             this.menus[i].draw(canvas);

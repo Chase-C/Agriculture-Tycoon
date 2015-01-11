@@ -11,7 +11,7 @@ var createInventoryMenu = function(farm)
         elements.push(new Text(farm.text[i] + mod, 16, 60 + (i * 36), 14));
 
         var button = new Button(239, 55 + (i * 36), 112, 32, 'Select', farm.selectItem.bind(farm, i));
-        if (!farm.inv[i]) {
+        if (!farm.inv[i] || (farm.cropType >= 0 && farm.cropType != i - 2 && i > 1 && i < 7)) {
             button.active = false;
         }
 

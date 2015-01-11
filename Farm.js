@@ -6,8 +6,8 @@ var Farm = function()
     this.money = 1000;
     this.water = 1000;
 
-    this.cropType   = 0;
-    this.cropAmount = 100;
+    this.cropType   = -1;
+    this.cropAmount = [1000, 1000, 100, 100, 1000];
 
     this.tools = {
 		shovel: new Item(10, 15, true),
@@ -15,9 +15,6 @@ var Farm = function()
 		helpingHand: new Item(100, 1, true),
 		tire: new Item(50, 1, false)
 	};
-
-    this.tools.shovel.obtain();
-    this.tools.tractor.obtain();
 
     this.seeds = {
         lettuce:    10,
@@ -93,11 +90,23 @@ Farm.prototype =
 
     farmMove: function(move, target){
         //till by shov
-        if(move == 1 && this.tools.shovel.held && target.blank){
-            console.log('til');
+        if(move == 1 && this.tools.shovel.held && !target.tilled){
             day = day - 6;
-            target.tilled = 1;
             target.blank = 0;
+            target.lettuce=0;
+            target.apples=0;
+            target.strawberries=0;
+            target.brussel=0;
+            target.artichokes=0;
+            target.tilled = 1;
+            target.planted=0;
+            target.ripe=0;
+            target.ruined=0;
+            target.fertile=0;
+            target.GMO=0;
+            target.growthRate=1.0;
+            target.pestRepel=1.0;
+            target.GMO=0;
             this.tools.shovel.use();
         }else if(move == 2 && this.tools.tractor.held && target.blank == 1){
             day = day - 2;
@@ -197,6 +206,17 @@ Farm.prototype =
             target.pestRepel=1.0;
             target.GMO=0;
         }
+
+        this.cropType = -1;
+        for (var i = 0; i < Land.length; i++) {
+            for (var j = 0; j < Land[i].length; j++) {
+                var t = Land[i][j];
+                var c = t.lettuce + (2 * t.apples) + (3 * t.strawberries) + (4 * t.brussel) + (6 * t.artichokes) - 1;
+                if (c >= 0) {
+                    this.cropType = c;
+                }
+            }
+        }
     },
 
     addTool: function(itemName)
@@ -218,6 +238,10 @@ Farm.prototype =
         for (var i = 0; i < Land.length; i++) {
             for (var j = 0; j < Land[i].length; j++) {
             }
+        }
+
+        for (var i = 0; i < this.cropAmount.length; i++) {
+            this.cropAmount[i] -= time * this.cropAmount[i] * Seeds.spoilPercent[i] / 24;
         }
     },
 

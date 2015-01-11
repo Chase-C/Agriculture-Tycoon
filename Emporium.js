@@ -19,7 +19,8 @@ var Seeds = {
     ROFProduce:       [330,       310,      320,            300,               450],
     RCFProduce:       [270,       265,      250,            210,               305],
     FMOFProduce:      [340,       320,      350,            310,               430],
-    FMCFProduce:      [260,       275,      245,            220,               300]
+    FMCFProduce:      [260,       275,      245,            220,               300],
+    spoilPercent:     [.10,       .05,      0.15,           .10,               .10]
 };
 
 var waterPrice = 0.25; //$ per unit

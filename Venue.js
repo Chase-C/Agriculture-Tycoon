@@ -81,6 +81,7 @@ Venue.prototype =
     willBuy: function(crop, price, num)
     {
         var purchaseReady = Math.min(this.purchaseReady[crop], 2);
+        console.log('p: ' + purchaseReady);
         var numUnits      = (this.maxProduce[crop] - this.numProduce[crop]) * this.cropDemand[crop];
         var priceMod      = Math.pow(Seeds.price[crop] / price, 2);
         var salePower     = priceMod * Math.min(num / numUnits, 1);
