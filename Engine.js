@@ -19,6 +19,9 @@ var Engine = function(w, h)
     this.messages = new Messages(256, 16, 280, 480);
     this.messages.add('test');
     this.messages.add('some more tests\nnow with newlines');
+
+    this.testCropSupply = new CropSupply(10);
+    this.testVenue      = new Venue('test', this.testCropSupply);
 }
 
 Engine.prototype =
@@ -40,6 +43,8 @@ Engine.prototype =
 	
 	keyPress: function(keyCode)
     {
+        this.testCropSupply.update(8);
+        this.testVenue.update(8);
     },
 
     mouseDown: function(x, y)

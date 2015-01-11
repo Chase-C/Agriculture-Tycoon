@@ -1,0 +1,12 @@
+var Store = function(cropSupply)
+{
+    this.cropSupply = cropSupply;
+    this.cropDemand = [1, 1, 1, 1, 1].map(function(val) { return val * Math.random(); });
+}
+
+Store.prototype =
+{
+    udpate: function(hours)
+    {
+    }
+}

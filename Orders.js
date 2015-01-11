@@ -1,4 +1,5 @@
-var Orders = {
+var Order = function()
+{
 	init: function(){
 		var x = Math.random();
 		this.order = true;
